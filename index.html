@@ -3,7 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DzDeve - Développement Web Haut de Gamme</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>DzDeve</title>
+    <meta name="description" content="DzDeve - Agence de développement web en Algérie. Création de sites web rapides, modernes et performants. Développement d'applications web et mobiles. Contactez-nous pour votre projet digital.">
+    <meta name="keywords" content="développement web, création site web, agence web Algérie, développement application, site web rapide, DzDeve, web design, programmation, React, Node.js, JavaScript">
+    <meta name="author" content="DzDeve">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="French">
+    <meta name="revisit-after" content="7 days">
+    <meta name="distribution" content="global">
+    
+    <!-- Open Graph Meta Tags (Facebook, LinkedIn) -->
+    <meta property="og:title" content="DzDeve - Développement Web Haut de Gamme">
+    <meta property="og:description" content="Création de sites web rapides et modernes en Algérie. Développement d'applications web et mobiles performantes.">
+    <meta property="og:image" content="img/logo.png">
+    <meta property="og:url" content="https://dzdeve.com">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="DzDeve">
+    <meta property="og:locale" content="fr_FR">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="DzDeve - Développement Web Haut de Gamme">
+    <meta name="twitter:description" content="Création de sites web rapides et modernes en Algérie. Développement d'applications web et mobiles performantes.">
+    <meta name="twitter:image" content="img/logo.png">
+    <meta name="twitter:site" content="@dzdeve">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://dzdeve.com">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <link rel="apple-touch-icon" href="img/logo.png">
+    <link rel="icon" type="image/x-icon" href="img/logo.png">
+    
+    <!-- Preconnect to external domains for performance -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="theme-color" content="#2A1B40">
+    <meta name="msapplication-TileColor" content="#2A1B40">
+    <meta name="application-name" content="DzDeve">
+    <meta name="apple-mobile-web-app-title" content="DzDeve">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "DzDeve",
+        "url": "https://dzdeve.com",
+        "logo": "https://dzdeve.com/img/logo.png",
+        "description": "Agence de développement web en Algérie spécialisée dans la création de sites web rapides et modernes",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Rouiba",
+            "addressRegion": "Alger",
+            "addressCountry": "DZ"
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+213-123-456-789",
+            "contactType": "customer service",
+            "email": "contact@dzdeve.com"
+        },
+        "sameAs": [
+            "https://www.facebook.com/profile.php?id=61560098264702",
+            "https://www.instagram.com/dzdevelopement/",
+            "https://www.linkedin.com/company/dzdeve"
+        ],
+        "serviceArea": {
+            "@type": "Country",
+            "name": "Algeria"
+        },
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Services de Développement Web",
+            "itemListElement": [
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "Développement Web",
+                        "description": "Création de sites web performants avec les dernières technologies"
+                    }
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "Applications Mobile",
+                        "description": "Développement d'applications mobiles pour iOS et Android"
+                    }
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "Maintenance & Support",
+                        "description": "Support technique et maintenance préventive"
+                    }
+                }
+            ]
+        }
+    }
+    </script>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -673,22 +782,24 @@
 
         @media (max-width: 768px) {
             .project-image {
-                height: 300px;
+                display: none !important;
             }
-
-            .project-navigation {
-                bottom: 5px;
-                padding: 6px 15px;
+            .project-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 60px 5% 80px;
+                gap: 24px;
             }
-
-            .nav-button {
-                width: 28px;
-                height: 28px;
-                font-size: 0.8rem;
+            .project-info {
+                max-width: 100%;
+                text-align: center;
+                padding: 0;
             }
-
-            .project-dots {
-                bottom: -25px;
+            .projects,
+            .project-showcase {
+                min-height: unset !important;
+                height: auto !important;
             }
         }
 
@@ -711,6 +822,111 @@
             .project-dots {
                 bottom: -25px;
             }
+        }
+
+        /* Founders Section */
+        .founders {
+            padding: 100px 5%;
+            background-color: var(--color1);
+            position: relative;
+        }
+
+        .founders-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .founders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin-top: 40px;
+        }
+
+        .founder-card {
+            background: #fff;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 6px 32px rgba(42, 27, 64, 0.10);
+            padding: 36px 18px 28px 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: box-shadow 0.3s, transform 0.3s;
+            opacity: 1;
+            transform: none;
+            max-width: 370px;
+            min-height: 440px;
+            margin: 0 auto;
+        }
+        .founder-card:hover {
+            box-shadow: 0 12px 40px rgba(42, 27, 64, 0.15);
+            transform: translateY(-6px) scale(1.03);
+        }
+        .modern-avatar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .modern-avatar img {
+            width: 130px;
+            height: 130px;
+            padding: 3px;
+            border-radius: 50%;
+            border: 4px solid transparent;
+            background: linear-gradient(135deg, #d92b5a, #8c4d82, #8280bf);
+            background-clip: padding-box, border-box;
+            box-shadow: 0 2px 12px rgba(42, 27, 64, 0.08);
+            object-fit: cover;
+            background-origin: border-box;
+        }
+        .founder-info {
+            text-align: center;
+            padding: 0;
+        }
+        .founder-info h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+        .founder-info .position {
+            color: #d92b5a;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+        }
+        .founder-info .bio {
+            color: #555;
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+        .modern-social {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-top: auto;
+        }
+        .modern-social a {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #f2f2f2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8280bf;
+            font-size: 1rem;
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+            box-shadow: 0 1px 4px rgba(42, 27, 64, 0.06);
+            text-decoration: none;
+        }
+        .modern-social a:hover {
+            background: #d92b5a;
+            color: #fff;
+            transform: translateY(-2px) scale(1.08);
         }
 
         /* Clients Section */
@@ -782,20 +998,6 @@
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
-        }
-
-        /* Vague de transition pour la section clients */
-        .clients-wave {
-            position: relative;
-            width: 100%;
-            line-height: 0;
-            z-index: 2;
-            margin-bottom: -5px;
-        }
-        .clients-wave svg {
-            display: block;
-            width: 100%;
-            height: 100px;
         }
 
         /* Contact Section */
@@ -1208,6 +1410,19 @@
             width: 100%;
             height: 100px;
         }
+
+        .clients-wave {
+            position: relative;
+            width: 100%;
+            line-height: 0;
+            z-index: 2;
+            background-color: var(--color1);
+        }
+        .clients-wave svg {
+            display: block;
+            width: 100%;
+            height: 80px;
+        }
     </style>
 </head>
 <body>
@@ -1221,6 +1436,7 @@
             <a href="#home">Accueil</a>
             <a href="#services">Services</a>
             <a href="#projects">Projets</a>
+            <a href="#founders">Fondateurs</a>
             <a href="#clients">Clients</a>
             <a href="#contact">Contact</a>
         </nav>
@@ -1402,6 +1618,48 @@
                 <span class="dot" data-index="2"></span>
                 <span class="dot" data-index="3"></span>
                 <span class="dot" data-index="4"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founders Section -->
+    <section class="founders" id="founders">
+        <div class="section-title">
+            <h2>Nos Fondateurs</h2>
+            <p>Les esprits créatifs derrière DzDeve, alliant expertise technique et vision stratégique.</p>
+        </div>
+        <div class="founders-container">
+            <div class="founders-grid">
+                <div class="founder-card">
+                    <div class="founder-image modern-avatar">
+                        <img src="fonders/nassim.jpg" alt="Nassim Mimouni">
+                    </div>
+                    <div class="founder-info">
+                        <h3>Nassim Mimouni</h3>
+                        <p class="position">Co-Fondateur</p>
+                        <p class="bio">Licence en informatique, spécialité Ingénierie des Systèmes d'Information et du Logiciel.</p>
+                        <div class="founder-social modern-social">
+                            <a href="https://www.linkedin.com/in/nassim-mimouni-856aa92a6?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://github.com/Nassim-mim" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="mailto:nassim@dzdeve.com" title="Email"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="founder-card">
+                    <div class="founder-image modern-avatar">
+                        <img src="fonders/loutfi.png" alt="Loutfi Belabbas">
+                    </div>
+                    <div class="founder-info">
+                        <h3>Loutfi Belabbas</h3>
+                        <p class="position">Co-Fondateur</p>
+                        <p class="bio">Licence en informatique, spécialité Ingénierie des Systèmes d'Information et du Logiciel.</p>
+                        <div class="founder-social modern-social">
+                            <a href="https://www.linkedin.com/in/loutfi-belabbas-676185138?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://github.com/LotfiBs2004" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="mailto:loutfi@dzdeve.com" title="Email"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
