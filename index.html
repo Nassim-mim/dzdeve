@@ -1103,6 +1103,71 @@
             box-shadow: 0 10px 20px rgba(217, 43, 90, 0.2);
         }
 
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 16px 24px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            max-width: 400px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-left: 4px solid #047857;
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            border-left: 4px solid #b91c1c;
+        }
+
+        .notification i {
+            font-size: 1.2rem;
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .notification-message {
+            font-size: 0.9rem;
+            opacity: 0.95;
+            line-height: 1.4;
+        }
+
+        .notification-close {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.1rem;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .notification-close:hover {
+            opacity: 1;
+        }
         /* Footer */
         footer {
             background-color: var(--color3);
@@ -1398,14 +1463,14 @@
         }
 
         /* Projects Section */
-        .projects-wave {
+        .projects_wave {
             position: relative;
             width: 100%;
             line-height: 0;
             z-index: 2;
             margin-bottom: -5px;
         }
-        .projects-wave svg {
+        .projects_wave svg {
             display: block;
             width: 100%;
             height: 100px;
@@ -1740,32 +1805,115 @@
             </div>
            <div class="contact-form">
  <form id="contact-form">
-  <input type="text" name="name" placeholder="Nom complet" required />
-  <input type="email" name="email" placeholder="Email" required />
-  <input type="tel" name="phone" placeholder="Numéro de téléphone" required />
-  <input type="text" name="service" placeholder="Type de service" required />
-
-  <!-- Hidden auto-generated date -->
+  <div class="form-group">
+    <label for="name">Nom complet</label>
+    <input type="text" id="name" name="name" placeholder="Nom complet" required />
+  </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" placeholder="Email" required />
+  </div>
+  <div class="form-group">
+    <label for="phone">Numéro de téléphone</label>
+    <input type="tel" id="phone" name="phone" placeholder="Numéro de téléphone" required />
+  </div>
+  <div class="form-group">
+    <label for="service">Type de service</label>
+    <input type="text" id="service" name="service" placeholder="Type de service" required />
+  </div>
   <input type="hidden" name="date" id="date" />
-
-  <textarea name="message" placeholder="Votre message" required></textarea>
-
-  <button type="submit">Envoyer le message</button>
+  <div class="form-group">
+    <label for="message">Votre message</label>
+    <textarea id="message" name="message" placeholder="Votre message" required></textarea>
+  </div>
+  <button type="submit" class="submit-btn">Envoyer le message</button>
 </form>
 
 <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 <script>
   emailjs.init("25I9jodbgFx8qVvtf");
 
+  // Function to show professional notifications
+  function showNotification(type, title, message) {
+    // Remove any existing notifications
+    const existingNotification = document.querySelector('.notification');
+    if (existingNotification) {
+      existingNotification.remove();
+    }
+
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    
+    const icon = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-triangle';
+    
+    notification.innerHTML = `
+      <i class="${icon}"></i>
+      <div class="notification-content">
+        <div class="notification-title">${title}</div>
+        <div class="notification-message">${message}</div>
+      </div>
+      <button class="notification-close" onclick="this.parentElement.remove()">
+        <i class="fas fa-times"></i>
+      </button>
+    `;
+
+    // Add to document
+    document.body.appendChild(notification);
+
+    // Show notification with animation
+    setTimeout(() => {
+      notification.classList.add('show');
+    }, 100);
+
+    // Auto-hide after 5 seconds
+    setTimeout(() => {
+      if (notification.parentElement) {
+        notification.classList.remove('show');
+        setTimeout(() => {
+          if (notification.parentElement) {
+            notification.remove();
+          }
+        }, 300);
+      }
+    }, 5000);
+  }
+
   document.getElementById("contact-form").addEventListener("submit", function (e) {
     e.preventDefault();
+    
+    // Disable submit button and show loading state
+    const submitBtn = this.querySelector('.submit-btn');
+    const originalText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
 
     // Auto-fill current date
     document.getElementById("date").value = new Date().toLocaleString();
 
     emailjs.sendForm("service_q2ukg3c", "template_hrcc2a2", this)
-      .then(() => alert("✅ Message envoyé avec succès !"))
-      .catch((error) => alert("❌ Erreur : " + JSON.stringify(error)));
+      .then(() => {
+        showNotification(
+          'success', 
+          'Message envoyé avec succès !', 
+          'Nous avons bien reçu votre message et vous répondrons dans les plus brefs délais.'
+        );
+        // Reset form
+        this.reset();
+      })
+      .catch((error) => {
+        console.error('EmailJS Error:', error);
+        showNotification(
+          'error', 
+          'Erreur lors de l\'envoi', 
+          'Une erreur s\'est produite lors de l\'envoi de votre message. Veuillez réessayer ou nous contacter directement.'
+        );
+      })
+      .finally(() => {
+        // Re-enable submit button
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      });
   });
 </script>
 
