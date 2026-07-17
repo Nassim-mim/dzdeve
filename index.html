@@ -90,1239 +90,664 @@
         }
     }
     </script>
-    
     <style>
         :root {
-            /* Palette Premium Dark "Big Tech" */
-            --bg-dark: #0f0c15;
-            --bg-card: #1a1625;
-            --primary: #ffffff;
-            --secondary: #94a3b8;
-            
-            /* Vos couleurs de marque sublimées */
-            --accent-gradient: linear-gradient(135deg, #D92B5A 0%, #8C4D82 50%, #8280BF 100%);
-            --accent-glow: rgba(217, 43, 90, 0.4);
-            
-            --glass: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --blur: blur(20px);
+            --bg-page: #FAFAFC;
+            --card-white: #FFFFFF;
+            --text-main: #0F172A;
+            --text-secondary: #64748B;
+            --dz-red: #D92B5A;
+            --dz-purple: #8280BF;
+            --gradient-brand: linear-gradient(135deg, var(--dz-red) 0%, var(--dz-purple) 100%);
+            --shadow-sm: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 30px 60px -15px rgba(217, 43, 90, 0.15);
+        }
+
+        /* --- CORRECTION OVERFLOW BUG --- */
+        html, body {
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden; 
+            margin: 0;
+            padding: 0;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            scroll-behavior: smooth;
+            cursor: none; 
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--primary);
-            overflow-x: hidden;
-            line-height: 1.6;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
         }
 
-        h1, h2, h3, h4 {
-            font-family: 'Space Grotesk', sans-serif; /* Police technique moderne */
-            font-weight: 700;
+        h1, h2, h3, .brand-font {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            letter-spacing: -0.03em;
         }
 
-        /* --- UI Elements Modernes --- */
+        /* --- Custom Cursor --- */
+        .custom-cursor {
+            position: fixed;
+            top: 0; left: 0;
+            width: 12px; height: 12px;
+            background-color: var(--dz-red);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background-color 0.3s;
+            mix-blend-mode: exclusion;
+        }
+        .custom-cursor.active {
+            width: 60px; height: 60px;
+            background-color: white;
+        }
+
+        /* --- Preloader --- */
+        .preloader {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100vh;
+            background: var(--bg-page);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .loader-logo {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .loader-logo span {
+            display: inline-block;
+            transform: translateY(100%);
+        }
+
+        .loader-logo .red { color: var(--text-main); }
+        .loader-logo .purple { color: var(--dz-red); }
+
+        /* --- Layout --- */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        .section-py { padding: 150px 0; }
         .text-gradient {
-            background: var(--accent-gradient);
+            background: var(--gradient-brand);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
-        .btn-primary {
-            background: var(--accent-gradient);
-            color: white;
-            padding: 16px 36px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 10px 30px var(--accent-glow);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 20px 40px var(--accent-glow);
-        }
-
-        .section-padding {
-            padding: 120px 5%;
-        }
-
-        /* --- Header Premium --- */
+        /* --- Header --- */
         header {
             position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 20px 5%;
+            top: 24px; left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 48px);
+            max-width: 1000px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 16px 32px;
+            border-radius: 100px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 1000;
-            background: rgba(15, 12, 21, 0.7);
-            backdrop-filter: var(--blur);
-            border-bottom: 1px solid var(--glass-border);
-            transition: all 0.4s ease;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text-main); text-decoration: none; }
+        .logo span { color: var(--dz-red); }
+        .nav-links { display: flex; gap: 32px; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-weight: 500; }
+        .btn-header {
+            background: var(--text-main); color: white;
+            padding: 12px 24px; border-radius: 50px; text-decoration: none; font-weight: 600;
+            transition: 0.3s;
+        }
+        .btn-header:hover { background: var(--dz-red); }
+        
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
         }
 
-        @media (max-width: 992px) {
-            header {
-                padding: 15px 5%;
-                flex-wrap: wrap;
-            }
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: white;
-            text-decoration: none;
-            letter-spacing: -1px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 40px;
-            background: rgba(255, 255, 255, 0.03);
-            padding: 10px 30px;
-            border-radius: 50px;
-            border: 1px solid var(--glass-border);
-        }
-
-        @media (max-width: 1200px) {
-            .nav-links { gap: 25px; }
-        }
-
-        @media (max-width: 992px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 80px;
-                left: 0;
-                right: 0;
-                gap: 0;
-                flex-direction: column;
-                width: 100%;
-                background: var(--bg-dark);
-                backdrop-filter: var(--blur);
-                border-radius: 0;
-                padding: 30px 5%;
-                border: none;
-                border-bottom: 1px solid var(--glass-border);
-            }
-            
-            .nav-links a {
-                padding: 15px 0;
-                border-bottom: 1px solid var(--glass-border);
-            }
-            
-            .nav-links.active {
-                display: flex;
-            }
-        }
-
-        .nav-links a {
-            color: var(--secondary);
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: white;
-        }
-
-        .menu-toggle {
-            display: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            background: none;
-            border: none;
-        }
-
-        @media (max-width: 992px) {
-            .menu-toggle {
-                display: block;
-                order: 2;
-                z-index: 1001;
-            }
-        }
-
-        /* --- Hero Section Immersive --- */
+        /* --- Hero --- */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
+            justify-content: center;
+            text-align: center;
             position: relative;
-            overflow: hidden;
-            padding-top: 80px;
+            padding-top: 100px;
+            overflow: hidden; 
         }
-
-        /* Background Glow Effects */
         .hero::before {
-            content: '';
-            position: absolute;
-            top: -20%;
-            right: -10%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(217, 43, 90, 0.2) 0%, rgba(0,0,0,0) 70%);
-            border-radius: 50%;
-            z-index: 0;
+            content: ''; position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%);
+            width: 80vw; height: 80vw; max-width: 800px; max-height: 800px;
+            background: radial-gradient(circle, rgba(217,43,90,0.1) 0%, rgba(130,128,191,0.05) 40%, transparent 70%);
+            z-index: -1; filter: blur(40px);
+            animation: breathe 8s infinite alternate;
         }
+        @keyframes breathe { 0% { transform: translate(-50%, -50%) scale(1); } 100% { transform: translate(-50%, -50%) scale(1.2); } }
 
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: -10%;
-            left: -10%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(130, 128, 191, 0.15) 0%, rgba(0,0,0,0) 70%);
-            border-radius: 50%;
-            z-index: 0;
+        .hero h1 { font-size: clamp(3rem, 8vw, 7.5rem); line-height: 1; margin-bottom: 24px; clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%); }
+        .hero-line { display: block; transform: translateY(110%); }
+
+        /* --- Chiffres Clés --- */
+        .stats-wrapper {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+            background: var(--card-white); padding: 50px; border-radius: 30px;
+            box-shadow: var(--shadow-sm); border: 1px solid rgba(0,0,0,0.03);
+            transform: translateY(-50px);
         }
+        .stat-item h3 { font-size: clamp(2rem, 4vw, 3.5rem); color: var(--text-main); line-height: 1; }
+        .stat-item p { color: var(--text-secondary); font-weight: 500; margin-top: 8px; font-size: 0.9rem;}
+        @media(max-width: 900px) { .stats-wrapper { grid-template-columns: repeat(2, 1fr); } }
 
-        .hero-container {
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 5%;
+        /* --- Portfolio (Mise à jour avec VOS réalisations) --- */
+        .portfolio-grid {
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            align-items: center;
-            gap: 50px;
-            z-index: 1;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+            margin-top: 50px;
         }
-
-        .hero-text h1 {
-            font-size: 4.5rem;
-            line-height: 1.1;
-            margin-bottom: 25px;
-            letter-spacing: -0.03em;
-        }
-
-        @media (max-width: 1200px) {
-            .hero-text h1 {
-                font-size: 3.8rem;
-            }
-        }
-
-        @media (max-width: 992px) {
-            .hero-text h1 {
-                font-size: 2.5rem;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .hero-text h1 {
-                font-size: 1.8rem;
-            }
-        }
-
-        .hero-text p {
-            font-size: 1.25rem;
-            color: var(--secondary);
-            margin-bottom: 40px;
-            max-width: 600px;
-        }
-
-        @media (max-width: 1200px) {
-            .hero-text p {
-                font-size: 1.1rem;
-            }
-        }
-
-        @media (max-width: 992px) {
-            .hero-text p {
-                font-size: 1rem;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .hero-text p {
-                font-size: 0.9rem;
-            }
-        }
-
-        /* Abstract Hero Visual instead of simple image */
-        .hero-visual {
+        .portfolio-card {
             position: relative;
-            height: 500px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .code-card {
-            background: rgba(22, 22, 30, 0.9);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            padding: 20px;
-            width: 100%;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            position: relative;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
-        }
-
-        /* --- Services Bento Grid --- */
-        .services {
-            background: var(--bg-dark);
-            position: relative;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 80px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .section-header h2 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-
-        .section-header p {
-            color: var(--secondary);
-            font-size: 1.1rem;
-        }
-
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .bento-card {
-            background: var(--bg-card);
-            border: 1px solid var(--glass-border);
-            padding: 40px;
+            height: 350px;
             border-radius: 24px;
-            transition: all 0.4s ease;
-            position: relative;
             overflow: hidden;
+            background: #e2e8f0;
+            box-shadow: var(--shadow-sm);
         }
-
-        .bento-card:hover {
-            border-color: rgba(217, 43, 90, 0.5);
-            transform: translateY(-10px);
-            background: linear-gradient(180deg, var(--bg-card) 0%, rgba(217, 43, 90, 0.05) 100%);
+        .portfolio-card img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
-        .service-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--glass);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: #D92B5A;
-            margin-bottom: 25px;
+        .portfolio-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.4) 50%, transparent 100%);
+            display: flex; flex-direction: column; justify-content: flex-end;
+            padding: 40px; opacity: 0;
+            transition: opacity 0.4s ease;
         }
+        .portfolio-card:hover img { transform: scale(1.05); }
+        .portfolio-card:hover .portfolio-overlay { opacity: 1; }
+        .portfolio-overlay h3 { color: white; font-size: 1.8rem; margin-bottom: 8px; text-transform: capitalize;}
+        .portfolio-overlay p { color: #CBD5E1; font-size: 1rem; }
 
-        .bento-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
+        /* --- Expertise --- */
+        .bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 50px;}
+        .bento-card { background: var(--card-white); padding: 40px; border-radius: 24px; border: 1px solid rgba(0,0,0,0.03); box-shadow: var(--shadow-sm); }
+        .bento-large { grid-column: span 2; }
+        @media(max-width:900px) { .bento-grid { grid-template-columns: 1fr; } .bento-large { grid-column: span 1; } }
+
+        /* --- Tech Marquee --- */
+        .marquee {
+            padding: 60px 0; background: white; overflow: hidden; display: flex; white-space: nowrap;
+            border-top: 1px solid rgba(0,0,0,0.05); border-bottom: 1px solid rgba(0,0,0,0.05);
+            width: 100vw;
         }
-
-        .bento-card p {
-            color: var(--secondary);
-            font-size: 1rem;
+        .marquee-track {
+            display: flex; gap: 80px; padding-right: 80px; animation: scroll-left 20s linear infinite;
         }
+        .marquee-track h4 { font-size: 2rem; color: #CBD5E1; font-weight: 800; transition: color 0.3s; }
+        .marquee-track h4:hover { color: var(--dz-red); }
+        @keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-        /* --- Projects Carousel Refined --- */
-        .projects {
-            background: #050407; /* Slightly darker */
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-showcase {
-            position: relative;
-            min-height: 600px;
-        }
-
-        @media (max-width: 992px) {
-            .project-showcase {
-                min-height: unset;
-                display: flex;
-                flex-direction: column;
-            }
-        }
-
-        .project-item {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        @media (max-width: 992px) {
-            .project-item {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: auto;
-                margin-bottom: 0;
-                opacity: 0;
-                visibility: hidden;
-                transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-
-            .project-item.active {
-                position: relative;
-                opacity: 1;
-                visibility: visible;
-            }
-        }
-
-        .project-item.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .project-content {
-            display: flex;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-            height: 100%;
-            padding: 0 5%;
-            gap: 60px;
-        }
-
-        @media (max-width: 992px) {
-            .project-content {
-                flex-direction: column;
-                height: auto;
-                padding: 60px 5% 40px;
-                gap: 30px;
-                align-items: flex-start;
-            }
-        }
-
-        .project-info {
-            flex: 1;
-            z-index: 2;
-            width: 100%;
-        }
-
-        @media (max-width: 992px) {
-            .project-info {
-                flex: 1 1 100%;
-                width: 100%;
-            }
-        }
-
-        .project-visual-container {
-            flex: 1.5;
-            position: relative;
-            width: 100%;
-        }
-
-        @media (max-width: 992px) {
-            .project-visual-container {
-                flex: 1 1 100%;
-                width: 100%;
-            }
-        }
-
-        .project-image-wrapper {
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-            border: 1px solid var(--glass-border);
-        }
-
-        .project-image-wrapper img {
-            width: 100%;
-            display: block;
-            transition: transform 0.8s ease;
-        }
-
-        .project-item.active .project-image-wrapper img {
-            transform: scale(1.02);
-        }
-
-        .project-tags {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-        }
-
-        .project-tag {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 6px 16px;
-            border-radius: 100px;
-            font-size: 0.85rem;
+        /* --- Method Horizontal Scroll --- */
+        .horizontal-section {
+            background: #0F172A; 
             color: white;
-            border: 1px solid rgba(255,255,255,0.1);
+            overflow: hidden; 
+            padding: 100px 0;
         }
-
-        .nav-controls {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
+        .horizontal-container {
             display: flex;
-            gap: 20px;
-            z-index: 10;
-            align-items: center;
-            flex-direction: row;
-        }
-
-        @media (max-width: 992px) {
-            .nav-controls {
-                position: relative;
-                bottom: auto;
-                left: auto;
-                transform: none;
-                justify-content: center;
-                align-items: center;
-                margin-top: auto;
-                padding-bottom: 30px;
-                width: 100%;
-                flex-direction: row;
-                gap: 15px;
-            }
-        }
-
-        /* Navigation Buttons */
-        .nav-btn {
-            display: none !important;
-        }
-
-        .nav-dot {
-            width: 60px;
-            height: 4px;
-            background: rgba(255,255,255,0.2);
-            cursor: pointer;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-dot.active {
-            background: #D92B5A;
-        }
-
-        @media (max-width: 992px) {
-            .nav-dot {
-                width: 50px;
-                height: 3px;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .nav-dot {
-                width: 40px;
-            }
-        }
-
-        /* --- Founders Premium --- */
-        .founders-grid {
-            display: flex;
-            justify-content: center;
+            width: max-content;
+            padding: 0 50vw 0 24px;
             gap: 40px;
-            flex-wrap: wrap;
-            margin-top: 60px;
         }
-
-        .founder-card {
-            background: var(--bg-card);
-            border: 1px solid var(--glass-border);
-            padding: 20px;
-            border-radius: 24px;
-            width: 350px;
-            text-align: center;
-            transition: transform 0.3s ease;
+        .horizontal-card {
+            width: 400px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 60px 40px;
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
         }
-
-        .founder-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .founder-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            padding: 4px;
-            background: var(--accent-gradient);
-            position: relative;
-        }
-
-        .founder-img img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--bg-card);
-        }
-
-        /* --- Clients Infinite Scroll (Clean) --- */
-        .clients {
-            background: black;
-            padding: 60px 0;
-            border-top: 1px solid var(--glass-border);
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .client-logo img {
-            filter: brightness(0) invert(1); /* Rendre les logos tout blancs */
-            opacity: 0.5;
-            transition: opacity 0.3s;
-            height: 50px;
-            object-fit: contain;
-        }
-
-        .client-logo img:hover {
-            opacity: 1;
-        }
-
-        /* --- Contact Split Layout --- */
-        .contact-wrapper {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .contact-form-container {
-            background: var(--bg-card);
-            padding: 40px;
-            border-radius: 24px;
-            border: 1px solid var(--glass-border);
-        }
-
-        .form-group input, .form-group textarea {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--glass-border);
-            color: white;
-            border-radius: 12px;
-        }
-
-        .form-group input:focus, .form-group textarea:focus {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: #D92B5A;
-            box-shadow: 0 0 0 4px rgba(217, 43, 90, 0.1);
-        }
-
-        /* --- Footer --- */
-        footer {
-            background: #050407;
-            padding: 80px 5% 40px;
-            border-top: 1px solid var(--glass-border);
-        }
-
-        .footer-logo {
-            font-size: 2rem;
-            font-weight: 800;
-            color: white;
-            text-decoration: none;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .footer-links h3 {
-            color: white;
-            font-size: 1.1rem;
-            margin-bottom: 25px;
-        }
-
-        .footer-links a {
-            color: var(--secondary);
-            text-decoration: none;
-            display: block;
-            margin-bottom: 12px;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: white;
-        }
-
-        /* --- Responsive --- */
-        @media (max-width: 992px) {
-            .hero-container { grid-template-columns: 1fr; text-align: center; padding: 0 5%; }
-            .hero-visual { display: none; }
-            .bento-grid { grid-template-columns: 1fr; }
-            .contact-wrapper { grid-template-columns: 1fr; }
-        }
-
         @media (max-width: 768px) {
-            .section-padding {
-                padding: 80px 5%;
-            }
-
-            .nav-dot {
-                width: 50px;
-                height: 3px;
-            }
+            .horizontal-card { width: 300px; padding: 40px 24px; }
         }
+        .horizontal-card h3 { font-size: 2rem; margin-bottom: 20px; }
+        .horizontal-card .step { color: var(--dz-red); font-weight: 800; font-size: 1.2rem; margin-bottom: 10px; display: block;}
 
-        @media (max-width: 640px) {
-            .section-padding {
-                padding: 60px 5%;
-            }
+        /* --- Équipe (Réintégrée) --- */
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; margin-top: 50px; }
+        .team-card { background: var(--card-white); padding: 40px; border-radius: 24px; text-align: center; box-shadow: var(--shadow-sm); border: 1px solid rgba(0,0,0,0.03); }
+        .team-avatar { width: 140px; height: 140px; border-radius: 50%; margin: 0 auto 24px; object-fit: cover; border: 4px solid var(--bg-page); box-shadow: var(--shadow-sm); }
+        .team-card h3 { font-size: 1.5rem; color: var(--text-main); }
+        .team-card .role { color: var(--dz-red); font-weight: 600; font-size: 0.95rem; margin: 8px 0 16px; }
 
-            .project-tags {
-                flex-wrap: wrap;
-            }
-
-            .btn-primary {
-                padding: 12px 24px;
-                font-size: 0.85rem;
-            }
-
-            .nav-dot {
-                width: 40px;
-            }
+        /* --- FAQ --- */
+        .faq-container { max-width: 800px; margin: 50px auto 0; }
+        details {
+            background: var(--card-white); border-radius: 20px; margin-bottom: 16px; box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0,0,0,0.03); overflow: hidden;
         }
-        
-        /* Utilitaires de notification */
-        .notification {
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            z-index: 2000;
-            background: var(--bg-card);
-            border: 1px solid var(--glass-border);
-            padding: 20px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            transform: translateX(150%);
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        summary {
+            padding: 24px 32px; font-size: 1.2rem; font-weight: 600; color: var(--text-main); list-style: none; display: flex; justify-content: space-between; align-items: center;
         }
-        .notification.show { transform: translateX(0); }
-        .notification.success { border-left: 4px solid #10b981; }
-        .notification.error { border-left: 4px solid #ef4444; }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '+'; font-size: 1.5rem; color: var(--dz-red); transition: transform 0.3s; }
+        details[open] summary::after { transform: rotate(45deg); }
+        .faq-content { padding: 0 32px 32px; color: var(--text-secondary); line-height: 1.6; }
+
+        /* --- Contact --- */
+        .contact-box { background: var(--card-white); padding: 80px 40px; border-radius: 40px; box-shadow: var(--shadow-lg); text-align: center; }
+        .form-control { width: 100%; padding: 16px 24px; border-radius: 16px; border: 1px solid rgba(0,0,0,0.1); background: var(--bg-page); margin-bottom: 16px; outline: none; }
+        .btn-submit { background: var(--gradient-brand); color: white; padding: 20px; border: none; border-radius: 16px; width: 100%; font-weight: 700; font-size: 1.1rem; }
     </style>
 </head>
 <body>
 
-    <header id="header">
-        <a href="#" class="logo">Dz<span style="color: #D92B5A;">Deve</span>.</a>
-        <nav class="nav-links">
-            <a href="#home">Accueil</a>
-            <a href="#services">Services</a>
-            <a href="#projects">Réalisations</a>
-            <a href="#founders">L'Équipe</a>
-            <a href="#contact">Contact</a>
-        </nav>
-        <div class="menu-toggle">
-            <i class="fas fa-bars"></i>
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="loader-logo">
+            <span class="red">Dz</span><span class="purple">Deve.</span>
         </div>
-        <a href="#contact" class="btn-primary" style="padding: 10px 24px; font-size: 0.9rem;">
-            Démarrer un projet
-        </a>
+    </div>
+
+    <!-- Header -->
+    <header class="gsap-header">
+        <a href="#" class="logo hover-target">Dz<span>Deve</span>.</a>
+        <nav class="nav-links">
+            <a href="#portfolio" class="hover-target">Réalisations</a>
+            <a href="#expertise" class="hover-target">Expertise</a>
+            <a href="#methode" class="hover-target">Méthode</a>
+        </nav>
+        <a href="#contact" class="btn-header hover-target">Démarrer</a>
     </header>
 
-    <section class="hero" id="home">
-        <div class="hero-container">
-            <div class="hero-text">
-                <h1>Le futur du web est <br><span class="text-gradient">Rapide & Moderne.</span></h1>
-                <p>DzDeve, fondée par <strong>Nassim Mimouni</strong> et <strong>Loutfi Belabbas</strong>, combine ingénierie logicielle de pointe et design esthétique pour propulser les entreprises algériennes vers les standards internationaux. Meilleure agence web en Algérie.</p>
-                <div style="display: flex; gap: 20px;">
-                    <a href="#contact" class="btn-primary">
-                        Discutons de votre vision <i class="fas fa-arrow-right"></i>
-                    </a>
-                    <a href="#projects" style="color: white; text-decoration: none; display: flex; align-items: center; gap: 10px; font-weight: 600;">
-                        Voir nos travaux <i class="fas fa-chevron-down"></i>
-                    </a>
-                </div>
+    <!-- Hero -->
+    <section class="hero container">
+        <div style="z-index: 1;">
+            <h1>
+                <span class="hero-line">L'Ingénierie Web</span>
+                <span class="hero-line text-gradient">Poussée à l'Extrême.</span>
+            </h1>
+            <p class="hero-desc" style="font-size: 1.3rem; color: var(--text-secondary); max-width: 600px; margin: 30px auto; opacity: 0;">
+                Nous concevons des applications et des plateformes digitales robustes, rapides et magnifiques pour les entreprises ambitieuses.
+            </p>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <div class="container">
+        <div class="stats-wrapper">
+            <div class="stat-item">
+                <h3><span class="counter" data-target="99">0</span>%</h3>
+                <p>Taux de satisfaction</p>
             </div>
-            
-            <div class="hero-visual">
-                <div class="code-card">
-                    <div style="display: flex; gap: 8px; margin-bottom: 15px;">
-                        <div style="width: 12px; height: 12px; background: #FF5F56; border-radius: 50%;"></div>
-                        <div style="width: 12px; height: 12px; background: #FFBD2E; border-radius: 50%;"></div>
-                        <div style="width: 12px; height: 12px; background: #27C93F; border-radius: 50%;"></div>
-                    </div>
-                    <div style="font-family: 'Courier New', monospace; font-size: 0.9rem; color: #a1a1aa;">
-                        <span style="color: #c678dd;">const</span> <span style="color: #e5c07b;">Agence</span> = {<br>
-                        &nbsp;&nbsp;nom: <span style="color: #98c379;">'DzDeve'</span>,<br>
-                        &nbsp;&nbsp;mission: <span style="color: #98c379;">'Excellence'</span>,<br>
-                        &nbsp;&nbsp;skills: [<span style="color: #98c379;">'React'</span>, <span style="color: #98c379;">'Node'</span>, <span style="color: #98c379;">'Mobile'</span>]<br>
-                        };<br><br>
-                        <span style="color: #61afef;">startProject</span>(<span style="color: #e5c07b;">Agence</span>);
-                    </div>
-                </div>
+            <div class="stat-item">
+                <h3><span class="counter" data-target="40">0</span>+</h3>
+                <p>Projets déployés</p>
+            </div>
+            <div class="stat-item">
+                <h3><span class="counter" data-target="99.9">0</span>%</h3>
+                <p>Uptime garanti</p>
+            </div>
+            <div class="stat-item">
+                <h3><span class="counter" data-target="24">0</span>h</h3>
+                <p>Support technique</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Portfolio avec VOS images -->
+    <section id="portfolio" class="section-py container">
+        <h2 style="font-size: 3rem;">Nos <span class="text-gradient">Réalisations.</span></h2>
+        <p style="color: var(--text-secondary); font-size: 1.2rem; margin-top: 10px;">Quelques-uns des produits digitaux que nous avons propulsés.</p>
+        
+     <div class="portfolio-grid">
+
+    <!-- Benzine -->
+    <a href="https://www.benzinetours.com/" target="_blank" class="portfolio-link">
+        <div class="portfolio-card hover-target">
+            <img src="creation/benzine.png" alt="Benzine">
+            <div class="portfolio-overlay">
+                <h3>Benzine</h3>
+                <p>Application Mobile</p>
+            </div>
+        </div>
+    </a>
+
+    <!-- Echo -->
+    <a href="https://echovoyages.dz/" target="_blank" class="portfolio-link">
+        <div class="portfolio-card hover-target">
+            <img src="creation/echo.png" alt="Echo">
+            <div class="portfolio-overlay">
+                <h3>Echo</h3>
+                <p>Solution Digitale Innovante</p>
+            </div>
+        </div>
+    </a>
+
+    <!-- Fourminet -->
+    <a href="https://www.lafourminet.com/" target="_blank" class="portfolio-link">
+        <div class="portfolio-card hover-target">
+            <img src="creation/fourminet.png" alt="Fourminet">
+            <div class="portfolio-overlay">
+                <h3>Fourminet</h3>
+                <p>Plateforme E-Commerce Premium</p>
+            </div>
+        </div>
+    </a>
+
+    <!-- Miz (CLIC MTS) -->
+    <a href="https://clicmts.com/" target="_blank" class="portfolio-link">
+        <div class="portfolio-card hover-target">
+            <img src="creation/miz.png" alt="Miz">
+            <div class="portfolio-overlay">
+                <h3>Miz</h3>
+                <p>Design UI/UX & Développement</p>
+            </div>
+        </div>
+    </a>
+
+</div>
+
+    <!-- Expertise -->
+    <section id="expertise" class="section-py container">
+        <h2 style="font-size: 3rem;">Notre <span class="text-gradient">Arsenal.</span></h2>
+        <div class="bento-grid">
+            <div class="bento-card bento-large hover-target">
+                <h3 style="font-size: 1.8rem; margin-bottom: 15px;">Développement Sur-Mesure</h3>
+                <p style="color: var(--text-secondary);">Applications web complexes (React, Next.js). Nous ne créons pas de simples sites, nous créons des logiciels qui tournent sur navigateur.</p>
+            </div>
+            <div class="bento-card hover-target">
+                <h3 style="font-size: 1.8rem; margin-bottom: 15px;">Mobile Natif</h3>
+                <p style="color: var(--text-secondary);">Apps iOS et Android ultra-fluides pensées pour la rétention.</p>
+            </div>
+            <div class="bento-card hover-target">
+                <h3 style="font-size: 1.8rem; margin-bottom: 15px;">DevOps & Cloud</h3>
+                <p style="color: var(--text-secondary);">Architectures AWS scalables pour encaisser des millions de requêtes.</p>
+            </div>
+            <div class="bento-card bento-large hover-target">
+                <h3 style="font-size: 1.8rem; margin-bottom: 15px;">Sécurité Maximale</h3>
+                <p style="color: var(--text-secondary);">Tests de pénétration, protection des données et architecture "Secure by Design" dirigée par notre expert Infra.</p>
             </div>
         </div>
     </section>
 
-    <section class="section-padding services" id="services">
-        <div class="section-header">
-            <h2>Nos Services - Création de Sites Web & Applications</h2>
-            <p>DzDeve propose une suite complète de services numériques pour développer votre présence web. Des sites web professionnels aux applications mobiles innovantes, nous créons des solutions digitales performantes en Algérie.</p>
+    <!-- Tech Marquee -->
+    <div class="marquee">
+        <div class="marquee-track">
+            <h4>REACT.JS</h4> <h4>NEXT.JS</h4> <h4>NODE.JS</h4> <h4>PYTHON</h4> <h4>AWS</h4> <h4>DOCKER</h4> <h4>FIGMA</h4>
+            <h4>REACT.JS</h4> <h4>NEXT.JS</h4> <h4>NODE.JS</h4> <h4>PYTHON</h4> <h4>AWS</h4> <h4>DOCKER</h4> <h4>FIGMA</h4>
+        </div>
+    </div>
+
+    <!-- Method Horizontal Scroll -->
+    <section id="methode" class="horizontal-section">
+        <div class="container" style="margin-bottom: 60px;">
+            <h2 style="font-size: clamp(2.5rem, 5vw, 4rem);">Un processus <br><span class="text-gradient">Chirurgical.</span></h2>
+        </div>
+        <div class="horizontal-container">
+            <div class="horizontal-card hover-target">
+                <span class="step">01. STRATÉGIE</span>
+                <h3>Audit & Architecture</h3>
+                <p style="color: #94A3B8; font-size: 1.1rem;">On analyse vos besoins business pour choisir la stack technologique parfaite avant de coder quoi que ce soit.</p>
+            </div>
+            <div class="horizontal-card hover-target">
+                <span class="step">02. DESIGN</span>
+                <h3>UI/UX Premium</h3>
+                <p style="color: #94A3B8; font-size: 1.1rem;">Création de maquettes pixel-perfect. L'esthétique rencontre la psychologie de conversion.</p>
+            </div>
+            <div class="horizontal-card hover-target">
+                <span class="step">03. CODE</span>
+                <h3>Développement Agile</h3>
+                <p style="color: #94A3B8; font-size: 1.1rem;">Vous suivez l'évolution sur un serveur de test. Code propre, documenté et testé unitairement.</p>
+            </div>
+            <div class="horizontal-card hover-target">
+                <span class="step">04. LAUNCH</span>
+                <h3>Déploiement & Scale</h3>
+                <p style="color: #94A3B8; font-size: 1.1rem;">Mise en production sécurisée sur le Cloud. On configure les serveurs pour que le site ne tombe jamais.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Équipe -->
+    <section id="team" class="section-py container">
+        <div class="text-center" style="text-align: center;">
+            <h2 style="font-size: 3rem; margin-bottom: 16px;">Fondateurs</h2>
+            <p style="color: var(--text-secondary); font-size: 1.1rem;">L'alliance de l'ingénierie logicielle et de l'infrastructure.</p>
         </div>
         
-        <div class="bento-grid">
-            <div class="bento-card">
-                <div class="service-icon"><i class="fas fa-code"></i></div>
-                <h3>Création de Sites Web</h3>
-                <p>Sites web ultra-rapides utilisant React, Next.js et des architectures Headless pour un SEO maximal. Développement web professionnel et performant.</p>
-            </div>
-            <div class="bento-card">
-                <div class="service-icon"><i class="fas fa-mobile-screen"></i></div>
-                <h3>Applications Mobile</h3>
-                <p>Expériences natives iOS et Android fluides, centrées sur l'engagement utilisateur. Applications mobiles innovantes et modernes.</p>
-            </div>
-            <div class="bento-card">
-                <div class="service-icon"><i class="fas fa-shield-halved"></i></div>
-                <h3>Cybersécurité & Veille</h3>
-                <p>Protection des données et surveillance active des menaces numériques. Solutions de sécurité avancées pour votre business.</p>
-            </div>
-            <div class="bento-card">
-                <div class="service-icon"><i class="fas fa-rocket"></i></div>
-                <h3>Scale-Up Startup</h3>
-                <p>Accompagnement technique pour transformer votre MVP en produit leader du marché.</p>
-            </div>
-            <div class="bento-card">
-                <div class="service-icon"><i class="fas fa-server"></i></div>
-                <h3>Cloud & DevOps</h3>
-                <p>Infrastructure robuste et déploiement automatisé pour une disponibilité de 99.9%.</p>
-            </div>
-            <div class="bento-card">
-                <div class="service-icon"><i class="fas fa-paintbrush"></i></div>
-                <h3>UI/UX Design</h3>
-                <p>Interfaces modernes et intuitives qui convertissent les visiteurs en clients fidèles.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="section-padding projects" id="projects">
-        <div class="section-header">
-            <h2>Nos Réalisations </h2>
-            <p>Découvrez les projets conçus par Dzdeve. Des solutions qui transforment des industries entières avec des sites web modernes et performants.</p>
-        </div>
-
-        <div class="project-showcase">
-            <div class="project-item active" data-project="miz">
-                <div class="project-content">
-                    <div class="project-info">
-                        <span style="color: #D92B5A; font-weight: 600; letter-spacing: 2px; font-size: 0.9rem;">TRAVEL TECH</span>
-                        <h3 class="text-gradient" style="font-size: 3rem; margin: 10px 0 20px;">Mizrana Travel</h3>
-                        <p style="color: var(--secondary); margin-bottom: 30px; font-size: 1.1rem;">Une plateforme B2B révolutionnaire pour l'industrie du voyage. Gestion complète des réservations, paiements sécurisés et suivi en temps réel.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">Node.js</span>
-                            <span class="project-tag">MySQL</span>
-                            <span class="project-tag">API Rest</span>
-                        </div>
-                        <a href="https://clicmts.com/" target="_blank" class="btn-primary" style="background: transparent; border: 1px solid rgba(255,255,255,0.2);">Voir le site</a>
-                    </div>
-                    <div class="project-visual-container">
-                        <div class="project-image-wrapper">
-                            <img src="creation/miz.png" alt="Mizrana Interface">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-item" data-project="fourminet">
-                <div class="project-content">
-                    <div class="project-info">
-                        <span style="color: #D92B5A; font-weight: 600; letter-spacing: 2px; font-size: 0.9rem;">SERVICES PRO</span>
-                        <h3 class="text-gradient" style="font-size: 3rem; margin: 10px 0 20px;">La Fourmi Net</h3>
-                        <p style="color: var(--secondary); margin-bottom: 30px; font-size: 1.1rem;">Refonte digitale pour le leader du nettoyage industriel. Une landing page haute performance axée sur la conversion.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">UX Design</span>
-                            <span class="project-tag">Responsive</span>
-                            <span class="project-tag">SEO</span>
-                        </div>
-                        <a href="https://lafourminet.com/" target="_blank" class="btn-primary" style="background: transparent; border: 1px solid rgba(255,255,255,0.2);">Voir le site</a>
-                    </div>
-                    <div class="project-visual-container">
-                        <div class="project-image-wrapper">
-                            <img src="creation/fourminet.png" alt="Fourminet Interface">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-item" data-project="airalgerie">
-                <div class="project-content">
-                    <div class="project-info">
-                        <span style="color: #D92B5A; font-weight: 600; letter-spacing: 2px; font-size: 0.9rem;">CYBERSECURITY</span>
-                        <h3 class="text-gradient" style="font-size: 3rem; margin: 10px 0 20px;">Air Algérie Security</h3>
-                        <p style="color: var(--secondary); margin-bottom: 30px; font-size: 1.1rem;">Système avancé de surveillance du Dark Web utilisant l'IA pour détecter les fuites de données sensibles de la compagnie nationale.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">Machine Learning</span>
-                            <span class="project-tag">Tor Network</span>
-                        </div>
-                    </div>
-                    <div class="project-visual-container">
-                        <div class="project-image-wrapper">
-                            <img src="creation/airalgerie.png" alt="Air Algerie Security">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-item" data-project="benzinetours">
-                <div class="project-content">
-                    <div class="project-info">
-                        <span style="color: #D92B5A; font-weight: 600; letter-spacing: 2px; font-size: 0.9rem;">TRAVEL TECH</span>
-                        <h3 class="text-gradient" style="font-size: 3rem; margin: 10px 0 20px;">Benzine Tours</h3>
-                        <p style="color: var(--secondary); margin-bottom: 30px; font-size: 1.1rem;">Plateforme de réservation de voyages et d'excursions avec système de paiement sécurisé et gestion d'itinéraires en temps réel.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">React</span>
-                            <span class="project-tag">Firebase</span>
-                            <span class="project-tag">Maps API</span>
-                        </div>
-                        <a href="https://benzinetours.com/" target="_blank" class="btn-primary" style="background: transparent; border: 1px solid rgba(255,255,255,0.2);">Voir le site</a>
-                    </div>
-                    <div class="project-visual-container">
-                        <div class="project-image-wrapper">
-                            <img src="creation/benzine.png" alt="Benzine Tours Interface">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-item" data-project="echovoyages">
-                <div class="project-content">
-                    <div class="project-info">
-                        <span style="color: #D92B5A; font-weight: 600; letter-spacing: 2px; font-size: 0.9rem;">TRAVEL SERVICES</span>
-                        <h3 class="text-gradient" style="font-size: 3rem; margin: 10px 0 20px;">Echo Voyages</h3>
-                        <p style="color: var(--secondary); margin-bottom: 30px; font-size: 1.1rem;">Agence de voyage digitalisée offrant une expérience complète de réservation avec conseils personnalisés et support 24/7.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">Next.js</span>
-                            <span class="project-tag">Stripe</span>
-                            <span class="project-tag">CRM Integration</span>
-                        </div>
-                        <a href="https://echovoyages.dz/" target="_blank" class="btn-primary" style="background: transparent; border: 1px solid rgba(255,255,255,0.2);">Voir le site</a>
-                    </div>
-                    <div class="project-visual-container">
-                        <div class="project-image-wrapper">
-                            <img src="creation/echo.png" alt="Echo Voyages Interface">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-             <div class="nav-controls">
-                <div class="nav-dot active" data-index="0"></div>
-                <div class="nav-dot" data-index="1"></div>
-                <div class="nav-dot" data-index="2"></div>
-                <div class="nav-dot" data-index="3"></div>
-                <div class="nav-dot" data-index="4"></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section-padding" id="founders" style="background: var(--bg-dark);">
-        <div class="section-header">
-            <h2>L'Équipe Dirigeante </h2>
-            <p>Visionnaires techniques et architectes logiciels qui créent des solutions web innovantes en Algérie.</p>
-        </div>
-        <div class="founders-grid">
-            <div class="founder-card">
-                <div class="founder-img">
-                    <img src="fonders/nassim.jpg" alt="Nassim Mimouni - Co-Fondateur et Lead Tech DzDeve">
-                </div>
+        <div class="team-grid">
+            <div class="team-card hover-target">
+                <img src="fonders/nassim.jpg" alt="Nassim Mimouni" class="team-avatar">
                 <h3>Nassim Mimouni</h3>
-                <p style="color: #D92B5A; font-weight: 600; margin-bottom: 10px;">Co-Fondateur & Lead Tech</p>
-                <p style="color: var(--secondary); font-size: 0.9rem; margin-bottom: 20px;">Master 1 Data Science - Expert en développement web et architecture logicielle</p>
-                <div style="display: flex; justify-content: center; gap: 15px;">
-                    <a href="#" style="color: white;" title="LinkedIn Nassim Mimouni"><i class="fab fa-linkedin fa-lg"></i></a>
-                    <a href="#" style="color: white;" title="GitHub Nassim Mimouni"><i class="fab fa-github fa-lg"></i></a>
-                </div>
+                <p class="role">Co-Fondateur</p>
+                <p style="color: var(--text-secondary); font-size: 0.95rem;">Expert Architecture Front-End & Innovation.</p>
             </div>
-            
-            <div class="founder-card">
-                <div class="founder-img">
-                    <img src="fonders/loutfi.png" alt="Loutfi Belabbas - Co-Fondateur DzDeve">
-                </div>
+            <div class="team-card hover-target">
+                <img src="fonders/loutfi.png" alt="Loutfi Belabbas" class="team-avatar">
                 <h3>Loutfi Belabbas</h3>
-                <p style="color: #D92B5A; font-weight: 600; margin-bottom: 10px;">Co-Fondateur</p>
-                <p style="color: var(--secondary); font-size: 0.9rem; margin-bottom: 20px;">Master 1 Networks and Embedded Systems - Spécialiste infrastructure et sécurité</p>
-                <div style="display: flex; justify-content: center; gap: 15px;">
-                    <a href="#" style="color: white;" title="LinkedIn Loutfi Belabbas"><i class="fab fa-linkedin fa-lg"></i></a>
-                    <a href="#" style="color: white;" title="GitHub Loutfi Belabbas"><i class="fab fa-github fa-lg"></i></a>
-                </div>
+                <p class="role">Co-Fondateur</p>
+                <p style="color: var(--text-secondary); font-size: 0.95rem;">Expert Infrastructure, Cloud & Cybersécurité.</p>
             </div>
         </div>
     </section>
 
-    <section class="clients" id="clients">
-        <div class="client-slider-container" style="overflow: hidden; white-space: nowrap;">
-            <div class="client-slider" style="display: inline-block; animation: slide 30s linear infinite;">
-                <span class="client-logo" style="display: inline-block; margin: 0 40px;"><img src="client/logosis.png" alt="Logosis"></span>
-                <span class="client-logo" style="display: inline-block; margin: 0 40px;"><img src="client/Lyna logo.png" alt="Lyna"></span>
-                <span class="client-logo" style="display: inline-block; margin: 0 40px;"><img src="client/mizrana-removebg-preview.png" alt="Mizrana"></span>
-                <span class="client-logo" style="display: inline-block; margin: 0 40px;"><img src="client/polaris-removebg-preview.png" alt="Polaris"></span>
-                <span class="client-logo" style="display: inline-block; margin: 0 40px;"><img src="client/Airalgerie-removebg-preview.png" alt="Air Algérie"></span>
-                <span class="client-logo" style="display: inline-block; margin: 0 40px;"><img src="client/logosis.png" alt="Logosis"></span>
-                <span class="client-logo" style="display: inline-block; margin: 0 40px;"><img src="client/Lyna logo.png" alt="Lyna"></span>
-                <span class="client-logo" style="display: inline-block; margin: 0 40px;"><img src="client/mizrana-removebg-preview.png" alt="Mizrana"></span>
-                <span class="client-logo" style="display: inline-block; margin: 0 40px;"><img src="client/polaris-removebg-preview.png" alt="Polaris"></span>
-                <span class="client-logo" style="display: inline-block; margin: 0 40px;"><img src="client/Airalgerie-removebg-preview.png" alt="Air Algérie"></span>
-            </div>
+    <!-- FAQ -->
+    <section class="section-py container" style="padding-top: 0;">
+        <h2 style="font-size: 3rem; text-align: center;">Questions <span class="text-gradient">Fréquentes.</span></h2>
+        <div class="faq-container">
+            <details class="hover-target">
+                <summary>Combien de temps prend un projet moyen ?</summary>
+                <div class="faq-content">
+                    Un site vitrine premium prend généralement entre 3 et 5 semaines. Pour une application web sur-mesure (SaaS, E-commerce complexe), comptez entre 2 et 4 mois selon les fonctionnalités requises. Nous définissons un calendrier strict lors de l'audit initial.
+                </div>
+            </details>
+            <details class="hover-target">
+                <summary>Travaillez-vous avec des clients à l'international ?</summary>
+                <div class="faq-content">
+                    Absolument. Bien que nous soyons basés en Algérie, nous accompagnons des startups et des entreprises en Europe, au Canada et au Moyen-Orient. Nous adaptons nos processus de communication à vos fuseaux horaires.
+                </div>
+            </details>
+            <details class="hover-target">
+                <summary>Offrez-vous un support après le lancement ?</summary>
+                <div class="faq-content">
+                    Oui, la mise en ligne n'est que le début. Nous proposons des forfaits de maintenance et d'hébergement Cloud (DevOps) pour assurer la sécurité, les mises à jour et l'évolution de votre plateforme sur le long terme.
+                </div>
+            </details>
         </div>
     </section>
 
-    <style>
-        @keyframes slide {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-    </style>
-
-    <section class="section-padding" id="contact" style="background: linear-gradient(180deg, var(--bg-dark) 0%, #151120 100%);">
-        <div class="contact-wrapper">
-            <div class="contact-text">
-                <h2 style="font-size: 3rem; margin-bottom: 20px;">Donnons vie à <br><span class="text-gradient">vos ambitions.</span></h2>
-                <p style="color: var(--secondary); font-size: 1.2rem; margin-bottom: 40px;">Vous avez un projet innovant ? Nous avons l'expertise technique. Remplissez le formulaire et nous vous répondrons sous 24h.</p>
-                
-                <div style="margin-bottom: 30px;">
-                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
-                        <div style="width: 40px; height: 40px; background: rgba(217, 43, 90, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #D92B5A;">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div>
-                            <p style="color: var(--secondary); font-size: 0.9rem;">Appelez-nous</p>
-                            <p style="font-weight: 600;">+213 562 53 49 73
-/
-+213 558 62 75 10</p>
-                        </div>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 15px;">
-                        <div style="width: 40px; height: 40px; background: rgba(217, 43, 90, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #D92B5A;">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div>
-                            <p style="color: var(--secondary); font-size: 0.9rem;">Email</p>
-                            <p style="font-weight: 600;">contact@dzdeve.com</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="contact-form-container">
-                <form id="contact-form">
-                    <div class="form-group" style="margin-bottom: 20px;">
-                        <label style="display: block; color: var(--secondary); margin-bottom: 8px; font-size: 0.9rem;">Nom complet</label>
-                        <input type="text" name="name" required style="width: 100%; padding: 15px; outline: none;">
-                    </div>
-                    <div class="form-group" style="margin-bottom: 20px;">
-                        <label style="display: block; color: var(--secondary); margin-bottom: 8px; font-size: 0.9rem;">Email professionnel</label>
-                        <input type="email" name="email" required style="width: 100%; padding: 15px; outline: none;">
-                    </div>
-                    <div class="form-group" style="margin-bottom: 20px;">
-                        <label style="display: block; color: var(--secondary); margin-bottom: 8px; font-size: 0.9rem;">Type de service</label>
-                        <input type="text" name="service" placeholder="Ex: Développement Web, App Mobile..." style="width: 100%; padding: 15px; outline: none;">
-                    </div>
-                    <div class="form-group" style="margin-bottom: 30px;">
-                        <label style="display: block; color: var(--secondary); margin-bottom: 8px; font-size: 0.9rem;">Message</label>
-                        <textarea name="message" rows="4" required style="width: 100%;resize: none; padding: 15px; outline: none;"></textarea>
-                    </div>
-                    <input type="hidden" name="date" id="date">
-                    <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; border: none; cursor: pointer;">
-                        Envoyer le message
-                    </button>
-                </form>
-            </div>
+    <!-- Contact -->
+    <section id="contact" class="section-py container" style="padding-top: 0;">
+        <div class="contact-box hover-target" style="max-width: 800px; margin: 0 auto;">
+            <h2 style="font-size: 3rem; margin-bottom: 20px;">Lançons votre projet</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 40px;">Remplissez ce formulaire. Loutfi ou Nassim vous répondront en personne sous 24h.</p>
+            
+            <form id="contact-form">
+                <input type="text" name="name" class="form-control" placeholder="Nom complet" required>
+                <input type="email" name="email" class="form-control" placeholder="Adresse Email" required>
+                <textarea name="message" class="form-control" rows="4" placeholder="Parlez-nous de votre vision..." required></textarea>
+                <button type="submit" class="btn-submit hover-target">Envoyer la demande</button>
+            </form>
         </div>
     </section>
 
-    <footer>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 50px; max-width: 1400px; margin: 0 auto; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 50px;">
-            <div>
-                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
-                    <img src="img/logo.png" alt="DzDeve Logo" style="height: 50px; width: auto;">
-                    <a href="#" class="footer-logo" style="margin: 0; font-size: 1.5rem;">DzDeve.</a>
-                </div>
-                <p style="color: var(--secondary); font-size: 0.95rem; max-width: 300px;">
-                    Agence digitale basée à Alger, spécialisée dans la création de solutions web haut de gamme pour les entreprises ambitieuses.
-                </p>
-            </div>
-            <div class="footer-links">
-                <h3>Société</h3>
-                <a href="#services">Services</a>
-                <a href="#projects">Réalisations</a>
-                <a href="#founders">À propos</a>
-            </div>
-            <div class="footer-links">
-                <h3>Légal</h3>
-                <a href="#">Mentions légales</a>
-                <a href="#">Politique de confidentialité</a>
-                <a href="#">CGV</a>
-            </div>
-            <div class="footer-links">
-                <h3>Social</h3>
-                <a href="https://www.linkedin.com/company/dzdeve" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
-                <a href="https://www.instagram.com/dzdeve/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
-                <a href="https://www.facebook.com/profile.php?id=61560098264702" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
-            </div>
-        </div>
-        <div style="text-align: center; padding-top: 30px; color: rgba(255,255,255,0.3); font-size: 0.9rem;">
-            &copy; 2025 DzDeve. Tous droits réservés. Designed with precision in Algeria.
-        </div>
+    <footer style="padding: 60px 24px; text-align: center; border-top: 1px solid rgba(0,0,0,0.05); margin-top: 60px;">
+        <p style="color: var(--text-secondary); font-weight: 500;">© 2026 DzDeve. L'Excellence Digitale.</p>
     </footer>
 
+    <!-- Scripts -->
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-    <script>
-        // Init EmailJS
-        (function(){
-            emailjs.init("25I9jodbgFx8qVvtf");
-        })();
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
 
-        // --- Header Scroll Glass Effect ---
-        window.addEventListener('scroll', function() {
-            const header = document.getElementById('header');
-            if (window.scrollY > 50) {
-                header.style.background = 'rgba(15, 12, 21, 0.9)';
-                header.style.boxShadow = '0 10px 30px rgba(0,0,0,0.5)';
-            } else {
-                header.style.background = 'rgba(15, 12, 21, 0.7)';
-                header.style.boxShadow = 'none';
+    <script>
+        // 1. Lenis Smooth Scroll
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smooth: true,
+        });
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        gsap.registerPlugin(ScrollTrigger);
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time)=>{ lenis.raf(time * 1000) });
+        gsap.ticker.lagSmoothing(0);
+
+        // 2. Custom Cursor
+        const cursor = document.querySelector('.custom-cursor');
+        const hoverTargets = document.querySelectorAll('.hover-target, button, a, summary');
+
+        // Sécurité pour désactiver le curseur sur mobile
+        if(window.innerWidth > 768) {
+            document.addEventListener('mousemove', (e) => {
+                gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1, ease: "power2.out" });
+            });
+
+            hoverTargets.forEach(target => {
+                target.addEventListener('mouseenter', () => cursor.classList.add('active'));
+                target.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+            });
+        } else {
+            cursor.style.display = 'none'; 
+        }
+
+        // 3. Preloader & Hero Animation
+        const tl = gsap.timeline();
+        document.body.style.overflow = 'hidden'; 
+
+        tl.to(".loader-logo span", {
+            y: 0,
+            duration: 1,
+            stagger: 0.1,
+            ease: "power4.out",
+            delay: 0.5
+        })
+        .to(".loader-logo", {
+            scale: 150,
+            opacity: 0,
+            duration: 1.5,
+            ease: "power4.inOut",
+            delay: 0.5
+        })
+        .to(".preloader", {
+            autoAlpha: 0,
+            duration: 0.5,
+            onComplete: () => {
+                document.body.style.overflow = '';
+                document.body.style.overflowX = 'hidden'; 
+            }
+        }, "-=0.5")
+        .to(".hero-line", {
+            y: 0,
+            duration: 1,
+            stagger: 0.1,
+            ease: "power4.out"
+        }, "-=0.2")
+        .to(".hero-desc", {
+            opacity: 1,
+            y: -20,
+            duration: 1
+        }, "-=0.5")
+        .from(".gsap-header", {
+            y: -100,
+            opacity: 0,
+            duration: 1,
+            ease: "power3.out"
+        }, "-=1");
+
+        // 4. Compteurs
+        const counters = document.querySelectorAll('.counter');
+        ScrollTrigger.create({
+            trigger: ".stats-wrapper",
+            start: "top 80%",
+            once: true,
+            onEnter: () => {
+                counters.forEach(counter => {
+                    const target = +counter.getAttribute('data-target');
+                    gsap.to(counter, {
+                        innerHTML: target,
+                        duration: 2,
+                        ease: "power2.out",
+                        snap: { innerHTML: target % 1 !== 0 ? 0.1 : 1 },
+                        onUpdate: function() {
+                            counter.innerHTML = Number(this.targets()[0].innerHTML).toFixed(target % 1 !== 0 ? 1 : 0);
+                        }
+                    });
+                });
             }
         });
 
-        // --- Mobile Menu ---
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
+        // 5. Scroll Horizontal sécurisé
+        let horizontalSection = document.querySelector('.horizontal-section');
+        let horizontalContainer = document.querySelector('.horizontal-container');
         
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
-        // --- Project Slider Logic ---
-        const projectItems = document.querySelectorAll('.project-item');
-        const dots = document.querySelectorAll('.nav-dot');
-        let currentProject = 0;
-        let slideInterval;
-
-        function showProject(index) {
-            // Remove active class
-            projectItems.forEach(item => item.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
-            
-            // Add active class
-            projectItems[index].classList.add('active');
-            dots[index].classList.add('active');
-        }
-
-        function nextProject() {
-            currentProject = (currentProject + 1) % projectItems.length;
-            showProject(currentProject);
-        }
-
-        function prevProject() {
-            currentProject = (currentProject - 1 + projectItems.length) % projectItems.length;
-            showProject(currentProject);
-        }
-
-        // Auto slide
-        slideInterval = setInterval(nextProject, 5000);
-
-        // Click on dots
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                currentProject = index;
-                showProject(currentProject);
-                clearInterval(slideInterval);
-                slideInterval = setInterval(nextProject, 5000);
-            });
-        });
-
-        // Navigation buttons
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-
-        if (prevBtn) {
-            prevBtn.addEventListener('click', () => {
-                prevProject();
-                clearInterval(slideInterval);
-                slideInterval = setInterval(nextProject, 5000);
+        if(window.innerWidth > 768) {
+            gsap.to(horizontalContainer, {
+                x: () => -(horizontalContainer.scrollWidth - window.innerWidth) + "px",
+                ease: "none",
+                scrollTrigger: {
+                    trigger: horizontalSection,
+                    pin: true,
+                    scrub: 1,
+                    end: () => "+=" + horizontalContainer.scrollWidth
+                }
             });
         }
 
-        if (nextBtn) {
-            nextBtn.addEventListener('click', () => {
-                nextProject();
-                clearInterval(slideInterval);
-                slideInterval = setInterval(nextProject, 5000);
-            });
-        }
-
-        // --- Contact Form ---
-        function showNotification(type, title, message) {
-            const notif = document.createElement('div');
-            notif.className = `notification ${type}`;
-            notif.innerHTML = `
-                <i class="${type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle'}" style="font-size: 1.5rem; color: ${type === 'success' ? '#10b981' : '#ef4444'}"></i>
-                <div>
-                    <h4 style="margin:0">${title}</h4>
-                    <p style="margin:0; font-size:0.9rem; color: #ccc;">${message}</p>
-                </div>
-            `;
-            document.body.appendChild(notif);
-            
-            setTimeout(() => notif.classList.add('show'), 100);
-            setTimeout(() => {
-                notif.classList.remove('show');
-                setTimeout(() => notif.remove(), 500);
-            }, 5000);
-        }
-
+        // 6. Contact Form EmailJS
+        (function(){ emailjs.init("25I9jodbgFx8qVvtf"); })();
         document.getElementById('contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const btn = this.querySelector('button');
-            const originalText = btn.textContent;
+            const originalText = btn.innerText;
             
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi...';
-            btn.disabled = true;
-            document.getElementById("date").value = new Date().toLocaleString();
+            btn.innerText = 'Envoi en cours...';
+            btn.style.opacity = '0.7';
 
             emailjs.sendForm("service_q2ukg3c", "template_hrcc2a2", this)
                 .then(() => {
-                    showNotification('success', 'Message envoyé', 'Nous vous recontacterons très vite.');
+                    btn.innerText = 'Message Envoyé avec succès !';
+                    btn.style.background = '#10B981';
+                    btn.style.opacity = '1';
                     this.reset();
+                    setTimeout(() => { btn.innerText = originalText; btn.style.background = ''; }, 4000);
                 })
-                .catch((err) => {
-                    console.error(err);
-                    showNotification('error', 'Erreur', 'Une erreur est survenue. Veuillez réessayer.');
-                })
-                .finally(() => {
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
+                .catch(() => {
+                    btn.innerText = 'Erreur. Réessayez.';
+                    btn.style.background = '#EF4444';
+                    btn.style.opacity = '1';
+                    setTimeout(() => { btn.innerText = originalText; btn.style.background = ''; }, 4000);
                 });
         });
     </script>
