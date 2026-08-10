@@ -4,28 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>DzDeve | Agence Web </title>
-    <meta name="description" content="DzDeve fondée par Nassim Mimouni et Loutfi Belabbas. Meilleure agence de développement web et applications mobiles en Algérie. Création sites web rapides, modernes, performants. Solutions digitales innovantes pour startup et entreprises.">
-    <meta name="keywords" content="dzdeve, nassim mimouni, loutfi belabbas, agence web algérie, développement web, site web algérie, applications mobiles, React, Node.js, Next.js, design UX, cybersécurité, startup algérie, développeur web algérie">
+    <title data-i18n="meta_title">dzdeve | Développement logiciel sur mesure en Algérie</title>
+    <meta name="description" data-i18n="meta_desc" content="dzdeve développe des applications web, des logiciels métier et des solutions digitales sur mesure pour les entreprises en Algérie et à l’international.">
+    <meta name="keywords" content="agence de développement logiciel Algérie, développement logiciel sur mesure Algérie, développement web Algérie, applications web Algérie, logiciels métier Algérie">
     <meta name="author" content="DzDeve">
     <meta name="robots" content="index, follow">
     <meta name="language" content="French">
-    <meta property="og:title" content="DzDeve | Agence Digitale Premium en Algérie">
-    <meta property="og:description" content="Solutions web et mobiles haut de gamme pour propulser votre business vers les standards internationaux.">
+    <meta property="og:title" content="dzdeve | Développement logiciel sur mesure en Algérie">
+    <meta property="og:description" content="dzdeve conçoit des applications web, des logiciels métier et des solutions digitales adaptées aux besoins réels des entreprises.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://dzdeve.com">
     <meta property="og:image" content="https://dzdeve.com/img/logo.png">
     <meta property="og:site_name" content="DzDeve">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="DzDeve | Agence Digitale Premium">
-    <meta name="twitter:description" content="Développement web et applications mobiles innovantes en Algérie">
+    <meta name="twitter:title" content="dzdeve | Développement logiciel sur mesure en Algérie">
+    <meta name="twitter:description" content="Applications web, logiciels métier et solutions digitales sur mesure pour les entreprises.">
     <meta name="twitter:image" content="https://dzdeve.com/img/logo.png">
     <link rel="canonical" href="https://dzdeve.com">
     <link rel="icon" type="image/png" href="img/logo.png">
+    <link rel="stylesheet" href="styles.css">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@300;400;600;700;800&family=Plus+Jakarta+Sans:wght@500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -36,14 +37,14 @@
         "@type": "Organization",
         "name": "DzDeve",
         "alternateName": ["Dz Deve", "DzDevelopement"],
-        "description": "Agence digitale premium spécialisée en développement web et applications mobiles fondée par Nassim Mimouni et Loutfi Belabbas",
+        "description": "Agence de développement logiciel spécialisée dans les applications web, les logiciels métier et les solutions digitales sur mesure.",
         "url": "https://dzdeve.com",
         "logo": "https://dzdeve.com/img/logo.png",
         "founder": [
             {
                 "@type": "Person",
                 "name": "Nassim Mimouni",
-                "jobTitle": "Co-Fondateur & Lead Tech",
+                "jobTitle": "Co-Fondateur",
                 "url": "https://dzdeve.com"
             },
             {
@@ -70,7 +71,17 @@
             "email": "contact@dzdeve.com"
         },
         "areaServed": ["DZ", "FR", "MA", "TN"],
-        "knowsAbout": ["Développement Web", "Applications Mobiles", "React", "Node.js", "Next.js", "Cybersécurité", "UI/UX Design", "Cloud", "DevOps"]
+        "knowsAbout": ["Développement logiciel sur mesure", "Développement web", "Applications web", "Logiciels métier", "SaaS", "API", "Maintenance"]
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "DzDeve",
+        "url": "https://dzdeve.com",
+        "description": "Agence de développement logiciel pour les entreprises en Algérie et à l’international."
     }
     </script>
     
@@ -78,14 +89,14 @@
     {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
-        "name": "DzDeve - Agence Web et Mobile",
-        "description": "Agence de développement web et applications mobiles en Algérie",
+        "name": "DzDeve",
+        "description": "Agence de développement logiciel et solutions digitales sur mesure basée en Algérie",
         "url": "https://dzdeve.com",
         "telephone": "+213-562-534973",
         "email": "contact@dzdeve.com",
         "address": {
             "@type": "PostalAddress",
-            "streetAddress": "Alger",
+            "addressLocality": "Alger",
             "addressCountry": "DZ"
         }
     }
@@ -119,6 +130,10 @@
             cursor: none; 
         }
 
+        a, button, input, textarea, summary {
+            -webkit-tap-highlight-color: transparent;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-page);
@@ -126,9 +141,46 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        html[lang='ar'] body {
+            font-family: 'Cairo', 'Inter', sans-serif;
+        }
+
         h1, h2, h3, .brand-font {
             font-family: 'Plus Jakarta Sans', sans-serif;
             letter-spacing: -0.03em;
+        }
+
+        html[lang='ar'] h1,
+        html[lang='ar'] h2,
+        html[lang='ar'] h3,
+        html[lang='ar'] .brand-font {
+            font-family: 'Cairo', 'Inter', sans-serif;
+            letter-spacing: 0;
+        }
+
+        html[dir='rtl'] body {
+            direction: rtl;
+        }
+
+        html[dir='rtl'] .info-card,
+        html[dir='rtl'] .service-card,
+        html[dir='rtl'] .bento-card,
+        html[dir='rtl'] .horizontal-card,
+        html[dir='rtl'] .faq-content,
+        html[dir='rtl'] .contact-box {
+            text-align: right;
+        }
+
+        html[dir='rtl'] .horizontal-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            width: auto;
+            padding: 0 24px;
+            gap: 20px;
+        }
+
+        html[dir='rtl'] .horizontal-card {
+            width: 100%;
         }
 
         /* --- Custom Cursor --- */
@@ -168,6 +220,8 @@
             font-weight: 800;
             display: flex;
             overflow: hidden;
+            direction: ltr;
+            unicode-bidi: isolate;
         }
 
         .loader-logo span {
@@ -187,6 +241,7 @@
         .section-py { padding: 150px 0; }
         .text-gradient {
             background: var(--gradient-brand);
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -209,7 +264,7 @@
             z-index: 100;
             box-shadow: var(--shadow-sm);
         }
-        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text-main); text-decoration: none; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text-main); text-decoration: none; direction: ltr; unicode-bidi: isolate; }
         .logo span { color: var(--dz-red); }
         .nav-links { display: flex; gap: 32px; }
         .nav-links a { color: var(--text-secondary); text-decoration: none; font-weight: 500; }
@@ -220,9 +275,6 @@
         }
         .btn-header:hover { background: var(--dz-red); }
         
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-        }
 
         /* --- Hero --- */
         .hero {
@@ -360,9 +412,115 @@
         .contact-box { background: var(--card-white); padding: 80px 40px; border-radius: 40px; box-shadow: var(--shadow-lg); text-align: center; }
         .form-control { width: 100%; padding: 16px 24px; border-radius: 16px; border: 1px solid rgba(0,0,0,0.1); background: var(--bg-page); margin-bottom: 16px; outline: none; }
         .btn-submit { background: var(--gradient-brand); color: white; padding: 20px; border: none; border-radius: 16px; width: 100%; font-weight: 700; font-size: 1.1rem; }
+
+        @media (max-width: 900px) {
+            .hero {
+                min-height: auto;
+                padding: 140px 0 80px;
+            }
+            .hero h1 {
+                font-size: clamp(2.2rem, 8vw, 3.2rem);
+            }
+            .stats-wrapper {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 32px;
+                transform: translateY(-20px);
+            }
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+            .bento-large {
+                grid-column: span 1;
+            }
+            .section-py {
+                padding: 90px 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                top: 12px;
+                width: calc(100% - 24px);
+                padding: 12px 16px;
+                border-radius: 24px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .btn-header {
+                padding: 10px 16px;
+                font-size: 0.95rem;
+            }
+            .container {
+                padding: 0 16px;
+            }
+            .stats-wrapper {
+                grid-template-columns: 1fr;
+                padding: 24px;
+                gap: 18px;
+            }
+            .portfolio-card {
+                height: 280px;
+            }
+            .marquee {
+                width: 100%;
+            }
+            .horizontal-section {
+                padding: 80px 0;
+            }
+            .horizontal-container {
+                display: grid;
+                grid-template-columns: 1fr;
+                width: auto;
+                padding: 0 16px;
+                gap: 20px;
+            }
+            .horizontal-card {
+                width: 100%;
+                padding: 32px 24px;
+            }
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            .contact-box {
+                padding: 40px 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding: 140px 0 64px;
+            }
+            .hero h1 {
+                font-size: clamp(2rem, 8vw, 2.6rem);
+            }
+            .hero-desc {
+                font-size: 1rem !important;
+            }
+            .portfolio-overlay {
+                padding: 24px;
+            }
+            .portfolio-overlay h3 {
+                font-size: 1.4rem;
+            }
+            .faq-container {
+                margin-top: 32px;
+            }
+            summary {
+                padding: 20px 24px;
+                font-size: 1rem;
+            }
+            .faq-content {
+                padding: 0 24px 24px;
+            }
+        }
     </style>
 </head>
-<body>
+<body data-page="index">
 
     <!-- Custom Cursor -->
     <div class="custom-cursor"></div>
@@ -376,64 +534,98 @@
 
     <!-- Header -->
     <header class="gsap-header">
-        <a href="#" class="logo hover-target">Dz<span>Deve</span>.</a>
+        <a href="index.html" class="logo hover-target">Dz<span>Deve</span>.</a>
         <nav class="nav-links">
-            <a href="#portfolio" class="hover-target">Réalisations</a>
-            <a href="#expertise" class="hover-target">Expertise</a>
-            <a href="#methode" class="hover-target">Méthode</a>
+            <a href="index.html" class="hover-target" data-i18n="nav_home">Accueil</a>
+            <a href="services.html" class="hover-target" data-i18n="nav_services">Services</a>
+            <a href="#portfolio" class="hover-target" data-i18n="nav_work">Réalisations</a>
+            <a href="about.html" class="hover-target" data-i18n="nav_about">À propos</a>
+            <a href="#contact" class="hover-target" data-i18n="nav_contact">Contact</a>
         </nav>
-        <a href="#contact" class="btn-header hover-target">Démarrer</a>
+        <div class="header-actions">
+            <button type="button" class="lang-switch-btn hover-target" aria-label="Switch to Arabic">AR</button>
+            <a href="#contact" class="btn-header hover-target" data-i18n="nav_cta">Parler de votre projet</a>
+        </div>
     </header>
 
     <!-- Hero -->
     <section class="hero container">
         <div style="z-index: 1;">
+            <p style="font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.25em; color: var(--dz-red); margin-bottom: 18px; font-weight: 700;" data-i18n="hero_tag">Agence de développement logiciel en Algérie</p>
             <h1>
-                <span class="hero-line">L'Ingénierie Web</span>
-                <span class="hero-line text-gradient">Poussée à l'Extrême.</span>
+                <span class="hero-line" data-i18n="hero_line_1">Développement logiciel</span>
+                <span class="hero-line text-gradient" data-i18n="hero_line_2">sur mesure pour les entreprises</span>
             </h1>
-            <p class="hero-desc" style="font-size: 1.3rem; color: var(--text-secondary); max-width: 600px; margin: 30px auto; opacity: 0;">
-                Nous concevons des applications et des plateformes digitales robustes, rapides et magnifiques pour les entreprises ambitieuses.
+            <p class="hero-desc" style="font-size: 1.2rem; color: var(--text-secondary); max-width: 700px; margin: 30px auto; opacity: 0; line-height: 1.7;" data-i18n="hero_desc">
+                dzdeve conçoit des applications web, des logiciels métier et des solutions digitales adaptées aux besoins réels de votre activité.
             </p>
+            <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-top: 24px;">
+                <a href="#contact" class="btn-header hover-target" style="display: inline-flex; align-items: center; justify-content: center;" data-i18n="hero_cta_primary">Démarrer un projet</a>
+                <a href="services.html" class="btn-header hover-target" style="display: inline-flex; align-items: center; justify-content: center; background: transparent; color: var(--text-main); border: 1px solid rgba(15,23,42,0.12);" data-i18n="hero_cta_secondary">Voir les services</a>
+            </div>
         </div>
     </section>
 
-    <!-- Stats -->
-    <div class="container">
-        <div class="stats-wrapper">
-            <div class="stat-item">
-                <h3><span class="counter" data-target="99">0</span>%</h3>
-                <p>Taux de satisfaction</p>
-            </div>
-            <div class="stat-item">
-                <h3><span class="counter" data-target="40">0</span>+</h3>
-                <p>Projets déployés</p>
-            </div>
-            <div class="stat-item">
-                <h3><span class="counter" data-target="99.9">0</span>%</h3>
-                <p>Uptime garanti</p>
-            </div>
-            <div class="stat-item">
-                <h3><span class="counter" data-target="24">0</span>h</h3>
-                <p>Support technique</p>
-            </div>
+    <!-- Intro / Services summary -->
+    <div class="container" style="margin-top: -20px;">
+        <div class="info-grid">
+            <article class="info-card">
+                <h3 data-i18n="intro_card_1_title">Logiciels sur mesure</h3>
+                <p data-i18n="intro_card_1_desc">Des solutions développées autour de vos besoins métier, plutôt que des outils génériques.</p>
+            </article>
+            <article class="info-card">
+                <h3 data-i18n="intro_card_2_title">Applications web</h3>
+                <p data-i18n="intro_card_2_desc">Des plateformes web conçues pour être utiles, fiables et simples à utiliser au quotidien.</p>
+            </article>
+            <article class="info-card">
+                <h3 data-i18n="intro_card_3_title">Accompagnement</h3>
+                <p data-i18n="intro_card_3_desc">Nous travaillons à partir d’un besoin clair pour proposer une solution technique adaptée.</p>
+            </article>
+            <article class="info-card">
+                <h3 data-i18n="intro_card_4_title">Basé en Algérie</h3>
+                <p data-i18n="intro_card_4_desc">Nous aidons des entreprises à structurer leurs outils numériques avec une approche pragmatique.</p>
+            </article>
         </div>
     </div>
 
+    <!-- Services -->
+    <section id="services" class="section-py container" style="padding-top: 80px;">
+        <h2 style="font-size: 3rem;"><span data-i18n="services_title_pre">Solutions</span> <span class="text-gradient" data-i18n="services_title_highlight">logicielles adaptées</span> <span data-i18n="services_title_post">à votre activité</span></h2>
+        <p style="color: var(--text-secondary); font-size: 1.2rem; margin-top: 10px; max-width: 760px;" data-i18n="services_desc">Nous accompagnons les entreprises dans la création d’outils numériques utiles, fiables et alignés avec leurs besoins métier.</p>
+        <div class="service-grid" style="margin-top: 36px;">
+            <article class="service-card">
+                <h3 data-i18n="srv_1_title">Développement de logiciels sur mesure</h3>
+                <p data-i18n="srv_1_desc">Des solutions conçues pour vos processus, vos règles métiers et vos contraintes spécifiques.</p>
+            </article>
+            <article class="service-card">
+                <h3 data-i18n="srv_2_title">Applications web</h3>
+                <p data-i18n="srv_2_desc">Des plateformes web modernes pour les entreprises qui ont besoin d’outils accessibles et évolutifs.</p>
+            </article>
+            <article class="service-card">
+                <h3 data-i18n="srv_3_title">Plateformes métier</h3>
+                <p data-i18n="srv_3_desc">Des outils pour structurer des flux de travail, automatiser des tâches et centraliser des informations.</p>
+            </article>
+            <article class="service-card">
+                <h3 data-i18n="srv_4_title">Maintenance et support</h3>
+                <p data-i18n="srv_4_desc">Un accompagnement continu pour garantir la stabilité, les mises à jour et l’évolution de votre solution.</p>
+            </article>
+        </div>
+    </section>
+
     <!-- Portfolio avec VOS images -->
-    <section id="portfolio" class="section-py container">
-        <h2 style="font-size: 3rem;">Nos <span class="text-gradient">Réalisations.</span></h2>
-        <p style="color: var(--text-secondary); font-size: 1.2rem; margin-top: 10px;">Quelques-uns des produits digitaux que nous avons propulsés.</p>
+    <section id="portfolio" class="section-py container" style="padding-top: 0;">
+        <h2 style="font-size: 3rem;"><span data-i18n="work_title_pre">Réalisations</span> <span class="text-gradient" data-i18n="work_title_highlight">sélectionnées</span></h2>
+        <p style="color: var(--text-secondary); font-size: 1.2rem; margin-top: 10px;" data-i18n="work_desc">Quelques projets web et digitaux développés avec une approche orientée besoins métier.</p>
         
      <div class="portfolio-grid">
 
     <!-- Benzine -->
     <a href="https://www.benzinetours.com/" target="_blank" class="portfolio-link">
         <div class="portfolio-card hover-target">
-            <img src="creation/benzine.png" alt="Benzine">
+            <img src="creation/benzine.png" alt="Projet Benzine - plateforme digitale et expérience utilisateur" data-i18n-alt="alt_benzine">
             <div class="portfolio-overlay">
                 <h3>Benzine</h3>
-                <p>Application Mobile</p>
+                <p data-i18n="work_1_desc">Produit digital et expérience web</p>
             </div>
         </div>
     </a>
@@ -441,10 +633,10 @@
     <!-- Echo -->
     <a href="https://echovoyages.dz/" target="_blank" class="portfolio-link">
         <div class="portfolio-card hover-target">
-            <img src="creation/echo.png" alt="Echo">
+            <img src="creation/echo.png" alt="Projet Echo - solution digitale pour voyages" data-i18n-alt="alt_echo">
             <div class="portfolio-overlay">
                 <h3>Echo</h3>
-                <p>Solution Digitale Innovante</p>
+                <p data-i18n="work_2_desc">Solution digitale orientée service</p>
             </div>
         </div>
     </a>
@@ -452,10 +644,10 @@
     <!-- Fourminet -->
     <a href="https://www.lafourminet.com/" target="_blank" class="portfolio-link">
         <div class="portfolio-card hover-target">
-            <img src="creation/fourminet.png" alt="Fourminet">
+            <img src="creation/fourminet.png" alt="Projet Fourminet - plateforme e-commerce" data-i18n-alt="alt_fourminet">
             <div class="portfolio-overlay">
                 <h3>Fourminet</h3>
-                <p>Plateforme E-Commerce Premium</p>
+                <p data-i18n="work_3_desc">Plateforme e-commerce</p>
             </div>
         </div>
     </a>
@@ -463,10 +655,10 @@
     <!-- Miz (CLIC MTS) -->
     <a href="https://clicmts.com/" target="_blank" class="portfolio-link">
         <div class="portfolio-card hover-target">
-            <img src="creation/miz.png" alt="Miz">
+            <img src="creation/miz.png" alt="Projet Miz - interface et développement web" data-i18n-alt="alt_miz">
             <div class="portfolio-overlay">
                 <h3>Miz</h3>
-                <p>Design UI/UX & Développement</p>
+                <p data-i18n="work_4_desc">Interface et développement web</p>
             </div>
         </div>
     </a>
@@ -475,23 +667,23 @@
 
     <!-- Expertise -->
     <section id="expertise" class="section-py container">
-        <h2 style="font-size: 3rem;">Notre <span class="text-gradient">Arsenal.</span></h2>
+        <h2 style="font-size: 3rem;"><span data-i18n="why_title_pre">Pourquoi</span> <span class="text-gradient" data-i18n="why_title_highlight">travailler avec dzdeve</span></h2>
         <div class="bento-grid">
             <div class="bento-card bento-large hover-target">
-                <h3 style="font-size: 1.8rem; margin-bottom: 15px;">Développement Sur-Mesure</h3>
-                <p style="color: var(--text-secondary);">Applications web complexes (React, Next.js). Nous ne créons pas de simples sites, nous créons des logiciels qui tournent sur navigateur.</p>
+                <h3 style="font-size: 1.8rem; margin-bottom: 15px;" data-i18n="why_1_title">Compréhension du besoin</h3>
+                <p style="color: var(--text-secondary);" data-i18n="why_1_desc">Nous commençons par comprendre votre activité, vos contraintes et la manière dont votre solution doit supporter vos équipes ou vos clients.</p>
             </div>
             <div class="bento-card hover-target">
-                <h3 style="font-size: 1.8rem; margin-bottom: 15px;">Mobile Natif</h3>
-                <p style="color: var(--text-secondary);">Apps iOS et Android ultra-fluides pensées pour la rétention.</p>
+                <h3 style="font-size: 1.8rem; margin-bottom: 15px;" data-i18n="why_2_title">Applications web et plateformes métier</h3>
+                <p style="color: var(--text-secondary);" data-i18n="why_2_desc">Nous concevons des produits numériques utiles pour le quotidien, avec une approche orientée résultat.</p>
             </div>
             <div class="bento-card hover-target">
-                <h3 style="font-size: 1.8rem; margin-bottom: 15px;">DevOps & Cloud</h3>
-                <p style="color: var(--text-secondary);">Architectures AWS scalables pour encaisser des millions de requêtes.</p>
+                <h3 style="font-size: 1.8rem; margin-bottom: 15px;" data-i18n="why_3_title">Architecture claire</h3>
+                <p style="color: var(--text-secondary);" data-i18n="why_3_desc">Nous définissons une structure technique adaptée au besoin, en gardant une logique de maintenance et d’évolution.</p>
             </div>
             <div class="bento-card bento-large hover-target">
-                <h3 style="font-size: 1.8rem; margin-bottom: 15px;">Sécurité Maximale</h3>
-                <p style="color: var(--text-secondary);">Tests de pénétration, protection des données et architecture "Secure by Design" dirigée par notre expert Infra.</p>
+                <h3 style="font-size: 1.8rem; margin-bottom: 15px;" data-i18n="why_4_title">Approche pragmatique</h3>
+                <p style="color: var(--text-secondary);" data-i18n="why_4_desc">Nous cherchons des solutions concrètes, cohérentes et évolutives, plutôt que des réponses trop génériques.</p>
             </div>
         </div>
     </section>
@@ -507,28 +699,28 @@
     <!-- Method Horizontal Scroll -->
     <section id="methode" class="horizontal-section">
         <div class="container" style="margin-bottom: 60px;">
-            <h2 style="font-size: clamp(2.5rem, 5vw, 4rem);">Un processus <br><span class="text-gradient">Chirurgical.</span></h2>
+            <h2 style="font-size: clamp(2.5rem, 5vw, 4rem);"><span data-i18n="process_title_pre">Un processus</span> <span class="text-gradient" data-i18n="process_title_highlight">simple et clair</span></h2>
         </div>
         <div class="horizontal-container">
             <div class="horizontal-card hover-target">
-                <span class="step">01. STRATÉGIE</span>
-                <h3>Audit & Architecture</h3>
-                <p style="color: #94A3B8; font-size: 1.1rem;">On analyse vos besoins business pour choisir la stack technologique parfaite avant de coder quoi que ce soit.</p>
+                <span class="step" data-i18n="step_1">01. COMPRENDRE</span>
+                <h3 data-i18n="step_1_title">Écouter le besoin</h3>
+                <p style="color: #94A3B8; font-size: 1.1rem;" data-i18n="step_1_desc">Nous commençons par identifier le problème à résoudre, les contraintes et les objectifs concrets.</p>
             </div>
             <div class="horizontal-card hover-target">
-                <span class="step">02. DESIGN</span>
-                <h3>UI/UX Premium</h3>
-                <p style="color: #94A3B8; font-size: 1.1rem;">Création de maquettes pixel-perfect. L'esthétique rencontre la psychologie de conversion.</p>
+                <span class="step" data-i18n="step_2">02. PROPOSER</span>
+                <h3 data-i18n="step_2_title">Définir la solution</h3>
+                <p style="color: #94A3B8; font-size: 1.1rem;" data-i18n="step_2_desc">Nous proposons une approche technique adaptée à votre contexte, à votre rythme et à votre budget.</p>
             </div>
             <div class="horizontal-card hover-target">
-                <span class="step">03. CODE</span>
-                <h3>Développement Agile</h3>
-                <p style="color: #94A3B8; font-size: 1.1rem;">Vous suivez l'évolution sur un serveur de test. Code propre, documenté et testé unitairement.</p>
+                <span class="step" data-i18n="step_3">03. DÉVELOPPER</span>
+                <h3 data-i18n="step_3_title">Construire et valider</h3>
+                <p style="color: #94A3B8; font-size: 1.1rem;" data-i18n="step_3_desc">Nous développons la solution en restant proches des besoins métiers et du fonctionnement réel.</p>
             </div>
             <div class="horizontal-card hover-target">
-                <span class="step">04. LAUNCH</span>
-                <h3>Déploiement & Scale</h3>
-                <p style="color: #94A3B8; font-size: 1.1rem;">Mise en production sécurisée sur le Cloud. On configure les serveurs pour que le site ne tombe jamais.</p>
+                <span class="step" data-i18n="step_4">04. ACCOMPAGNER</span>
+                <h3 data-i18n="step_4_title">Déployer et évoluer</h3>
+                <p style="color: #94A3B8; font-size: 1.1rem;" data-i18n="step_4_desc">Nous suivons la mise en place et l’évolution de la solution pour qu’elle reste utile sur le long terme.</p>
             </div>
         </div>
     </section>
@@ -536,46 +728,52 @@
     <!-- Équipe -->
     <section id="team" class="section-py container">
         <div class="text-center" style="text-align: center;">
-            <h2 style="font-size: 3rem; margin-bottom: 16px;">Fondateurs</h2>
-            <p style="color: var(--text-secondary); font-size: 1.1rem;">L'alliance de l'ingénierie logicielle et de l'infrastructure.</p>
+            <h2 style="font-size: 3rem; margin-bottom: 16px;" data-i18n="founders_title">Fondateurs</h2>
+            <p style="color: var(--text-secondary); font-size: 1.1rem;" data-i18n="founders_desc">L'alliance de l'ingénierie logicielle et de l'infrastructure.</p>
         </div>
         
         <div class="team-grid">
             <div class="team-card hover-target">
                 <img src="fonders/nassim.jpg" alt="Nassim Mimouni" class="team-avatar">
                 <h3>Nassim Mimouni</h3>
-                <p class="role">Co-Fondateur</p>
-                <p style="color: var(--text-secondary); font-size: 0.95rem;">Expert Architecture Front-End & Innovation.</p>
+                <p class="role" data-i18n="founder_1_role">Co-Fondateur</p>
+                <p style="color: var(--text-secondary); font-size: 0.95rem;" data-i18n="founder_1_desc">Expert Architecture Front-End & Innovation.</p>
             </div>
             <div class="team-card hover-target">
                 <img src="fonders/loutfi.png" alt="Loutfi Belabbas" class="team-avatar">
                 <h3>Loutfi Belabbas</h3>
-                <p class="role">Co-Fondateur</p>
-                <p style="color: var(--text-secondary); font-size: 0.95rem;">Expert Infrastructure, Cloud & Cybersécurité.</p>
+                <p class="role" data-i18n="founder_2_role">Co-Fondateur</p>
+                <p style="color: var(--text-secondary); font-size: 0.95rem;" data-i18n="founder_2_desc">Expert Infrastructure, Cloud & Cybersécurité.</p>
             </div>
         </div>
     </section>
 
     <!-- FAQ -->
     <section class="section-py container" style="padding-top: 0;">
-        <h2 style="font-size: 3rem; text-align: center;">Questions <span class="text-gradient">Fréquentes.</span></h2>
+        <h2 style="font-size: 3rem; text-align: center;"><span data-i18n="faq_title_pre">Questions</span> <span class="text-gradient" data-i18n="faq_title_highlight">fréquentes</span></h2>
         <div class="faq-container">
             <details class="hover-target">
-                <summary>Combien de temps prend un projet moyen ?</summary>
+                <summary data-i18n="faq_q1">Que fait dzdeve ?</summary>
                 <div class="faq-content">
-                    Un site vitrine premium prend généralement entre 3 et 5 semaines. Pour une application web sur-mesure (SaaS, E-commerce complexe), comptez entre 2 et 4 mois selon les fonctionnalités requises. Nous définissons un calendrier strict lors de l'audit initial.
+                    <span data-i18n="faq_a1">dzdeve développe des applications web, des logiciels métier et des solutions digitales sur mesure pour les entreprises ayant besoin d’outils adaptés à leurs activités.</span>
                 </div>
             </details>
             <details class="hover-target">
-                <summary>Travaillez-vous avec des clients à l'international ?</summary>
+                <summary data-i18n="faq_q2">Où est basée dzdeve ?</summary>
                 <div class="faq-content">
-                    Absolument. Bien que nous soyons basés en Algérie, nous accompagnons des startups et des entreprises en Europe, au Canada et au Moyen-Orient. Nous adaptons nos processus de communication à vos fuseaux horaires.
+                    <span data-i18n="faq_a2">dzdeve est basée en Algérie et accompagne également des entreprises à l’international selon leurs besoins de communication et de coordination.</span>
                 </div>
             </details>
             <details class="hover-target">
-                <summary>Offrez-vous un support après le lancement ?</summary>
+                <summary data-i18n="faq_q3">Développez-vous des logiciels sur mesure ?</summary>
                 <div class="faq-content">
-                    Oui, la mise en ligne n'est que le début. Nous proposons des forfaits de maintenance et d'hébergement Cloud (DevOps) pour assurer la sécurité, les mises à jour et l'évolution de votre plateforme sur le long terme.
+                    <span data-i18n="faq_a3">Oui. Nous travaillons sur des solutions adaptées à un besoin précis, qu’il s’agisse d’un outil de gestion, d’une application web ou d’une plateforme métier.</span>
+                </div>
+            </details>
+            <details class="hover-target">
+                <summary data-i18n="faq_q4">Comment démarrer un projet ?</summary>
+                <div class="faq-content">
+                    <span data-i18n="faq_a4">Le plus simple est de nous contacter avec une description de votre besoin. Nous vous répondrons avec une première compréhension du projet et des pistes de solution.</span>
                 </div>
             </details>
         </div>
@@ -584,20 +782,25 @@
     <!-- Contact -->
     <section id="contact" class="section-py container" style="padding-top: 0;">
         <div class="contact-box hover-target" style="max-width: 800px; margin: 0 auto;">
-            <h2 style="font-size: 3rem; margin-bottom: 20px;">Lançons votre projet</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 40px;">Remplissez ce formulaire. Loutfi ou Nassim vous répondront en personne sous 24h.</p>
+            <h2 style="font-size: 3rem; margin-bottom: 20px;" data-i18n="contact_title">Lançons votre projet</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 40px;" data-i18n="contact_desc">Remplissez ce formulaire. Loutfi ou Nassim vous répondront en personne sous 24h.</p>
             
             <form id="contact-form">
-                <input type="text" name="name" class="form-control" placeholder="Nom complet" required>
-                <input type="email" name="email" class="form-control" placeholder="Adresse Email" required>
-                <textarea name="message" class="form-control" rows="4" placeholder="Parlez-nous de votre vision..." required></textarea>
-                <button type="submit" class="btn-submit hover-target">Envoyer la demande</button>
+                <input type="text" name="name" class="form-control" placeholder="Nom complet" data-i18n-placeholder="placeholder_name" required>
+                <input type="email" name="email" class="form-control" placeholder="Adresse Email" data-i18n-placeholder="placeholder_email" required>
+                <textarea name="message" class="form-control" rows="4" placeholder="Parlez-nous de votre vision..." data-i18n-placeholder="placeholder_message" required></textarea>
+                <button type="submit" class="btn-submit hover-target" data-i18n="contact_submit">Envoyer la demande</button>
             </form>
         </div>
     </section>
 
     <footer style="padding: 60px 24px; text-align: center; border-top: 1px solid rgba(0,0,0,0.05); margin-top: 60px;">
-        <p style="color: var(--text-secondary); font-weight: 500;">© 2026 DzDeve. L'Excellence Digitale.</p>
+        <p style="color: var(--text-secondary); font-weight: 500;" data-i18n="footer_tagline">© 2026 DzDeve. Développement logiciel sur mesure.</p>
+        <div style="margin-top: 16px; display: flex; justify-content: center; flex-wrap: wrap; gap: 16px;">
+            <a href="services.html" style="color: var(--text-main); text-decoration: none; font-weight: 600;" data-i18n="footer_services">Services</a>
+            <a href="about.html" style="color: var(--text-main); text-decoration: none; font-weight: 600;" data-i18n="footer_about">À propos</a>
+            <a href="#contact" style="color: var(--text-main); text-decoration: none; font-weight: 600;" data-i18n="footer_contact">Contact</a>
+        </div>
     </footer>
 
     <!-- Scripts -->
@@ -605,6 +808,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    <script src="lang.js"></script>
 
     <script>
         // 1. Lenis Smooth Scroll
@@ -712,7 +916,9 @@
         let horizontalSection = document.querySelector('.horizontal-section');
         let horizontalContainer = document.querySelector('.horizontal-container');
         
-        if(window.innerWidth > 768) {
+        const currentLang = localStorage.getItem('dzdeve-lang') === 'ar' ? 'ar' : 'fr';
+
+        if(window.innerWidth > 768 && currentLang !== 'ar') {
             gsap.to(horizontalContainer, {
                 x: () => -(horizontalContainer.scrollWidth - window.innerWidth) + "px",
                 ease: "none",
@@ -723,6 +929,15 @@
                     end: () => "+=" + horizontalContainer.scrollWidth
                 }
             });
+        } else if (currentLang === 'ar') {
+            horizontalContainer.style.display = 'grid';
+            horizontalContainer.style.gridTemplateColumns = '1fr';
+            horizontalContainer.style.width = 'auto';
+            horizontalContainer.style.padding = '0 24px';
+            horizontalContainer.style.gap = '20px';
+            document.querySelectorAll('.horizontal-card').forEach((card) => {
+                card.style.width = '100%';
+            });
         }
 
         // 6. Contact Form EmailJS
@@ -730,21 +945,21 @@
         document.getElementById('contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const btn = this.querySelector('button');
-            const originalText = btn.innerText;
+            const originalText = window.dzI18n ? window.dzI18n.t('contact_submit') : btn.innerText;
             
-            btn.innerText = 'Envoi en cours...';
+            btn.innerText = window.dzI18n ? window.dzI18n.t('sending') : 'Envoi en cours...';
             btn.style.opacity = '0.7';
 
             emailjs.sendForm("service_q2ukg3c", "template_hrcc2a2", this)
                 .then(() => {
-                    btn.innerText = 'Message Envoyé avec succès !';
+                    btn.innerText = window.dzI18n ? window.dzI18n.t('sent_ok') : 'Message Envoyé avec succès !';
                     btn.style.background = '#10B981';
                     btn.style.opacity = '1';
                     this.reset();
                     setTimeout(() => { btn.innerText = originalText; btn.style.background = ''; }, 4000);
                 })
                 .catch(() => {
-                    btn.innerText = 'Erreur. Réessayez.';
+                    btn.innerText = window.dzI18n ? window.dzI18n.t('sent_err') : 'Erreur. Réessayez.';
                     btn.style.background = '#EF4444';
                     btn.style.opacity = '1';
                     setTimeout(() => { btn.innerText = originalText; btn.style.background = ''; }, 4000);
