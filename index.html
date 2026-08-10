@@ -696,35 +696,6 @@
         </div>
     </div>
 
-    <!-- Method Horizontal Scroll -->
-    <section id="methode" class="horizontal-section">
-        <div class="container" style="margin-bottom: 60px;">
-            <h2 style="font-size: clamp(2.5rem, 5vw, 4rem);"><span data-i18n="process_title_pre">Un processus</span> <span class="text-gradient" data-i18n="process_title_highlight">simple et clair</span></h2>
-        </div>
-        <div class="horizontal-container">
-            <div class="horizontal-card hover-target">
-                <span class="step" data-i18n="step_1">01. COMPRENDRE</span>
-                <h3 data-i18n="step_1_title">Écouter le besoin</h3>
-                <p style="color: #94A3B8; font-size: 1.1rem;" data-i18n="step_1_desc">Nous commençons par identifier le problème à résoudre, les contraintes et les objectifs concrets.</p>
-            </div>
-            <div class="horizontal-card hover-target">
-                <span class="step" data-i18n="step_2">02. PROPOSER</span>
-                <h3 data-i18n="step_2_title">Définir la solution</h3>
-                <p style="color: #94A3B8; font-size: 1.1rem;" data-i18n="step_2_desc">Nous proposons une approche technique adaptée à votre contexte, à votre rythme et à votre budget.</p>
-            </div>
-            <div class="horizontal-card hover-target">
-                <span class="step" data-i18n="step_3">03. DÉVELOPPER</span>
-                <h3 data-i18n="step_3_title">Construire et valider</h3>
-                <p style="color: #94A3B8; font-size: 1.1rem;" data-i18n="step_3_desc">Nous développons la solution en restant proches des besoins métiers et du fonctionnement réel.</p>
-            </div>
-            <div class="horizontal-card hover-target">
-                <span class="step" data-i18n="step_4">04. ACCOMPAGNER</span>
-                <h3 data-i18n="step_4_title">Déployer et évoluer</h3>
-                <p style="color: #94A3B8; font-size: 1.1rem;" data-i18n="step_4_desc">Nous suivons la mise en place et l’évolution de la solution pour qu’elle reste utile sur le long terme.</p>
-            </div>
-        </div>
-    </section>
-
     <!-- Équipe -->
     <section id="team" class="section-py container">
         <div class="text-center" style="text-align: center;">
@@ -918,7 +889,7 @@
         
         const currentLang = localStorage.getItem('dzdeve-lang') === 'ar' ? 'ar' : 'fr';
 
-        if(window.innerWidth > 768 && currentLang !== 'ar') {
+        if (horizontalSection && horizontalContainer && window.innerWidth > 768 && currentLang !== 'ar') {
             gsap.to(horizontalContainer, {
                 x: () => -(horizontalContainer.scrollWidth - window.innerWidth) + "px",
                 ease: "none",
@@ -929,7 +900,7 @@
                     end: () => "+=" + horizontalContainer.scrollWidth
                 }
             });
-        } else if (currentLang === 'ar') {
+        } else if (horizontalContainer && currentLang === 'ar') {
             horizontalContainer.style.display = 'grid';
             horizontalContainer.style.gridTemplateColumns = '1fr';
             horizontalContainer.style.width = 'auto';
